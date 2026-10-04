@@ -1,0 +1,32 @@
+{
+  "rules": {
+    "users": {
+      "$uid": {
+        ".read": "auth != null && auth.uid == $uid",
+        ".write": "auth != null && auth.uid == $uid",
+        ".validate": "newData.hasChildren(['email', 'createdAt'])"
+      }
+    },
+    "products": {
+      ".read": true,
+      ".write": "auth != null && root.child('admins').child(auth.uid).exists()",
+      "$product_id": {
+        ".validate": "newData.hasChildren(['title', 'price', 'stock'])"
+      }
+    },
+    "orders": {
+      "$order_id": {
+        ".read": "auth != null && (data.child('userId').val() == auth.uid || root.child('admins').child(auth.uid).exists())",
+        ".write": "auth != null && newData.child('userId').val() == auth.uid"
+      }
+    },
+    "admins": {
+      ".read": "auth != null",
+      ".write": false
+    },
+    "analytics": {
+      ".read": "auth != null && root.child('admins').child(auth.uid).exists()",
+      ".write": true
+    }
+  }
+}
