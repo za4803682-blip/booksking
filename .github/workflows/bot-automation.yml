@@ -1,0 +1,38 @@
+name: Booksking Enterprise Autonomous Pipeline
+
+on:
+  schedule:
+    # مزامنة تلقائية ذكية كل 4 ساعات بين أمازون وقاعدة بيانات جوجل سحابياً
+    - cron: '0 */4 * * *'
+  workflow_dispatch:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  enterprise-sync:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Repository Files
+        uses: actions/checkout@v3
+
+      - name: Setup Python 3.10 Runtime
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+
+      - name: Install Production Dependencies & Requirements
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then
+            pip install -r requirements.txt
+          fi
+
+      - name: Execute Autonomous Cloud Bot & Amazon Sync Engine
+        env:
+          FIREBASE_PROJECT_ID: "booksking-cloud-hub"
+          RUN_MODE: "production"
+        run: |
+          python myBot.py
+          
