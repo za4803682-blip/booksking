@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BOOKSKING Royal Elite Mega Hub - Perfect English Edition</title>
+    <title>BOOKSKING Royal Elite Mega Hub - Modular Edition</title>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
     <style>
@@ -48,237 +48,125 @@
             padding-top: 75px;
         }
 
-        /* Top Navbar */
         .top-navbar {
-            position: fixed;
-            top: 0; left: 0; width: 100%;
-            background: var(--card-bg);
-            border-bottom: 2px solid var(--gold-color);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 20px;
-            z-index: 999;
-            backdrop-filter: blur(12px);
+            position: fixed; top: 0; left: 0; width: 100%;
+            background: var(--card-bg); border-bottom: 2px solid var(--gold-color);
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 12px 20px; z-index: 999; backdrop-filter: blur(12px);
             box-shadow: 0 4px 20px var(--shadow-color);
         }
-        .nav-brand { color: var(--gold-color); font-weight: 900; font-size: 18px; text-decoration: none; letter-spacing: 0.5px; }
+        .nav-brand { color: var(--gold-color); font-weight: 900; font-size: 18px; text-decoration: none; }
 
         .menu-toggle-btn {
-            background: var(--bg-color);
-            border: 2px solid var(--gold-color);
-            color: var(--gold-color);
-            font-size: 20px;
-            font-weight: bold;
-            width: 40px; height: 40px;
-            border-radius: 10px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 10px var(--shadow-color);
-            z-index: 1002;
+            background: var(--bg-color); border: 2px solid var(--gold-color); color: var(--gold-color);
+            font-size: 20px; font-weight: bold; width: 40px; height: 40px; border-radius: 10px;
+            cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 1002;
         }
-        .menu-toggle-btn:active { transform: scale(0.92); }
 
-        /* Side Drawer */
         .side-drawer {
-            position: fixed;
-            top: 0; right: -320px; width: 300px; height: 100%;
-            background: var(--card-bg);
-            border-left: 2px solid var(--gold-color);
-            z-index: 1003;
-            box-shadow: -10px 0 30px var(--shadow-color);
-            backdrop-filter: blur(15px);
-            display: flex;
-            flex-direction: column;
-            padding: 20px;
-            transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            position: fixed; top: 0; right: -320px; width: 300px; height: 100%;
+            background: var(--card-bg); border-left: 2px solid var(--gold-color); z-index: 1003;
+            box-shadow: -10px 0 30px var(--shadow-color); backdrop-filter: blur(15px);
+            display: flex; flex-direction: column; padding: 20px; transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .side-drawer.open { right: 0; }
         
         .drawer-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 15px;
-            margin-bottom: 15px;
-            color: var(--gold-color);
-            font-weight: 800;
-            font-size: 16px;
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid var(--border-color); padding-bottom: 15px;
+            margin-bottom: 15px; color: var(--gold-color); font-weight: 800; font-size: 16px;
         }
         .close-drawer-btn { background: none; border: none; color: var(--text-muted); font-size: 22px; cursor: pointer; }
-        .close-drawer-btn:hover { color: var(--accent-red); }
 
-        .drawer-links-list { display: flex; flex-direction: column; gap: 9px; overflow-y: auto; max-height: calc(100vh - 100px); padding-right: 4px; }
+        .drawer-links-list { display: flex; flex-direction: column; gap: 9px; overflow-y: auto; max-height: calc(100vh - 100px); }
         .drawer-link-item {
-            background: var(--bg-color);
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
-            padding: 11px 14px;
-            border-radius: 10px;
-            font-size: 13px;
-            font-weight: 700;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 12px;
+            background: var(--bg-color); border: 1px solid var(--border-color); color: var(--text-main);
+            padding: 11px 14px; border-radius: 10px; font-size: 13px; font-weight: 700; text-decoration: none;
+            display: flex; align-items: center; gap: 12px;
         }
-        .drawer-link-item:hover { border-color: var(--gold-color); color: var(--gold-color); background: var(--card-hover); transform: translateX(-3px); }
+        .drawer-link-item:hover { border-color: var(--gold-color); color: var(--gold-color); background: var(--card-hover); }
         .drawer-special-item { border-color: var(--success-color); color: var(--success-color); }
         .drawer-group-item { border-color: #3b82f6; color: #60a5fa; }
 
         .drawer-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            z-index: 1000;
-            display: none;
-            backdrop-filter: blur(3px);
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.6); z-index: 1000; display: none; backdrop-filter: blur(3px);
         }
         .drawer-overlay.active { display: block; }
 
         .wrapper { width: 100%; max-width: 650px; position: relative; }
 
         .theme-toggle-btn {
-            position: fixed;
-            bottom: 20px; right: 20px;
-            background: var(--card-bg);
-            border: 2px solid var(--gold-color);
-            color: var(--gold-color);
-            width: 50px; height: 50px;
-            border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 22px; cursor: pointer;
-            box-shadow: 0 6px 20px var(--shadow-color);
-            z-index: 1000;
+            position: fixed; bottom: 20px; right: 20px; background: var(--card-bg);
+            border: 2px solid var(--gold-color); color: var(--gold-color); width: 50px; height: 50px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px;
+            cursor: pointer; box-shadow: 0 6px 20px var(--shadow-color); z-index: 1000;
         }
 
         .hero-banner { 
             background: linear-gradient(135deg, var(--card-bg), var(--bg-color)); 
-            border: 2px solid var(--gold-color); 
-            border-radius: 18px; 
-            padding: 20px; 
-            margin-bottom: 15px; 
-            text-align: center; 
+            border: 2px solid var(--gold-color); border-radius: 18px; padding: 20px; margin-bottom: 15px; text-align: center; 
         }
         .brand-title { color: var(--gold-color); font-size: 22px; font-weight: 800; margin-bottom: 5px; }
         .brand-subtitle { font-size: 12px; color: var(--text-muted); }
 
         .live-ticker {
-            background: rgba(243, 156, 18, 0.1);
-            border: 1px dashed var(--gold-color);
-            padding: 8px 12px;
-            border-radius: 10px;
-            font-size: 12px;
-            color: var(--gold-color);
-            text-align: center;
-            font-weight: bold;
-            margin-bottom: 15px;
-            white-space: nowrap;
-            overflow: hidden;
+            background: rgba(243, 156, 18, 0.1); border: 1px dashed var(--gold-color);
+            padding: 8px 12px; border-radius: 10px; font-size: 12px; color: var(--gold-color);
+            text-align: center; font-weight: bold; margin-bottom: 15px; white-space: nowrap; overflow: hidden;
         }
 
-        /* Smart Search with Autocomplete Suggestions */
         .smart-search-container { position: relative; margin-bottom: 18px; }
         .smart-search-box { display: flex; gap: 8px; }
         .smart-search-box input {
-            flex: 1; padding: 12px 15px;
-            background: var(--card-bg); border: 1px solid var(--border-color);
+            flex: 1; padding: 12px 15px; background: var(--card-bg); border: 1px solid var(--border-color);
             border-radius: 12px; color: var(--text-main); font-size: 13px; outline: none;
         }
         .smart-search-box input:focus { border-color: var(--gold-color); }
-        .search-btn {
-            background: var(--gold-color); border: none; color: #030712;
-            padding: 0 16px; border-radius: 12px; font-weight: bold; cursor: pointer;
-        }
+        .search-btn { background: var(--gold-color); border: none; color: #030712; padding: 0 16px; border-radius: 12px; font-weight: bold; cursor: pointer; }
+        
         .suggestions-dropdown {
             position: absolute; top: 100%; left: 0; width: calc(100% - 75px);
-            background: var(--card-bg); border: 1px solid var(--border-color);
-            border-radius: 10px; margin-top: 4px; z-index: 99; display: none;
-            box-shadow: 0 8px 20px var(--shadow-color); overflow: hidden;
+            background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 10px;
+            margin-top: 4px; z-index: 99; display: none; box-shadow: 0 8px 20px var(--shadow-color); overflow: hidden;
         }
-        .suggestion-item {
-            padding: 10px 14px; font-size: 12px; cursor: pointer; color: var(--text-main);
-            border-bottom: 1px solid var(--border-color);
-        }
+        .suggestion-item { padding: 10px 14px; font-size: 12px; cursor: pointer; color: var(--text-main); border-bottom: 1px solid var(--border-color); }
         .suggestion-item:hover { background: var(--card-hover); color: var(--gold-color); }
 
-        .section-card { 
-            background-color: var(--card-bg); 
-            border: 1px solid var(--border-color); 
-            border-radius: 18px; 
-            padding: 18px; 
-            margin-bottom: 18px; 
-        }
+        .section-card { background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 18px; padding: 18px; margin-bottom: 18px; }
         .section-header { text-align: center; font-size: 17px; margin-bottom: 12px; color: var(--gold-color); font-weight: 700; text-transform: uppercase; }
 
-        /* Enhanced Video Player */
-        .custom-video-hub {
-            background: #000; border: 2px solid var(--gold-color);
-            border-radius: 14px; overflow: hidden; margin-bottom: 12px;
-            box-shadow: 0 10px 25px var(--shadow-color);
-        }
+        .custom-video-hub { background: #000; border: 2px solid var(--gold-color); border-radius: 14px; overflow: hidden; margin-bottom: 12px; }
         .player-screen { position: relative; width: 100%; padding-bottom: 56.25%; background: #0b0f19; }
         .player-screen video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
-        .player-controls-bar {
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 10px 15px; background: rgba(15, 23, 42, 0.95); border-top: 1px solid var(--border-color);
-        }
+        .player-controls-bar { display: flex; align-items: center; justify-content: space-between; padding: 10px 15px; background: rgba(15, 23, 42, 0.95); border-top: 1px solid var(--border-color); }
         .player-title-display { font-size: 12px; color: var(--gold-color); font-weight: bold; }
-        .control-btn {
-            background: var(--bg-color); border: 1px solid var(--border-color);
-            color: var(--text-main); padding: 6px 12px; border-radius: 6px; font-size: 11px; cursor: pointer; font-weight: bold;
-        }
+        .control-btn { background: var(--bg-color); border: 1px solid var(--border-color); color: var(--text-main); padding: 6px 12px; border-radius: 6px; font-size: 11px; cursor: pointer; font-weight: bold; }
         .control-btn:hover { border-color: var(--gold-color); color: var(--gold-color); }
+        
         .video-playlist-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 10px; }
-        .playlist-item {
-            background-color: var(--bg-color); border: 1px solid var(--border-color);
-            color: var(--text-main); padding: 10px; border-radius: 8px; font-size: 11px; font-weight: bold; cursor: pointer; text-align: center;
-        }
+        .playlist-item { background-color: var(--bg-color); border: 1px solid var(--border-color); color: var(--text-main); padding: 10px; border-radius: 8px; font-size: 11px; font-weight: bold; cursor: pointer; text-align: center; }
         .playlist-item:hover { border-color: var(--gold-color); color: var(--gold-color); }
 
-        /* APK Center */
         .apk-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 10px; }
-        .apk-card {
-            background: var(--bg-color); border: 1px solid var(--border-color);
-            padding: 12px; border-radius: 12px; text-align: center; font-size: 12px; font-weight: bold;
-        }
+        .apk-card { background: var(--bg-color); border: 1px solid var(--border-color); padding: 12px; border-radius: 12px; text-align: center; font-size: 12px; font-weight: bold; }
         .apk-card a { color: var(--success-color); text-decoration: none; display: block; margin-top: 6px; font-size: 11px; }
 
-        /* Departments */
         .departments-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; max-height: 220px; overflow-y: auto; padding: 5px; border: 1px solid var(--border-color); border-radius: 12px; }
-        .dept-item { 
-            background-color: var(--card-bg); border: 1px solid var(--border-color); 
-            border-radius: 10px; padding: 12px; color: var(--gold-color); font-size: 12px; font-weight: 700; text-align: center; text-decoration: none; 
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-        }
+        .dept-item { background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 10px; padding: 12px; color: var(--gold-color); font-size: 12px; font-weight: 700; text-align: center; text-decoration: none; display: flex; flex-direction: column; align-items: center; justify-content: center; }
         .dept-item:hover { border-color: var(--gold-color); background-color: var(--card-hover); }
         .dept-special { border-color: var(--accent-red); color: var(--accent-red); }
 
-        /* Login */
-        .google-auth-btn {
-            width: 100%; padding: 13px; background-color: #ffffff; color: #0f172a;
-            border: 1px solid #cbd5e1; border-radius: 12px; font-weight: 700; font-size: 14px; cursor: pointer;
-            display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 15px;
-        }
+        .google-auth-btn { width: 100%; padding: 13px; background-color: #ffffff; color: #0f172a; border: 1px solid #cbd5e1; border-radius: 12px; font-weight: 700; font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 15px; }
         .divider { text-align: center; border-bottom: 1px solid var(--border-color); line-height: 0.1em; margin: 18px 0; font-size: 12px; color: var(--text-muted); }
         .divider span { background: var(--card-bg); padding: 0 10px; }
         .input-box { margin-bottom: 14px; }
         .input-box label { display: block; margin-bottom: 5px; font-size: 13px; color: var(--text-muted); font-weight: 600; }
-        .input-box input { 
-            width: 100%; padding: 13px; background-color: var(--bg-color); 
-            border: 1px solid var(--border-color); border-radius: 12px; color: var(--text-main); font-size: 14px; outline: none; 
-        }
+        .input-box input { width: 100%; padding: 13px; background-color: var(--bg-color); border: 1px solid var(--border-color); border-radius: 12px; color: var(--text-main); font-size: 14px; outline: none; }
         .input-box input:focus { border-color: var(--gold-color); }
-        .royal-btn { 
-            width: 100%; padding: 14px; background: linear-gradient(135deg, var(--gold-color), var(--gold-hover)); 
-            border: none; border-radius: 12px; color: #030712; font-weight: 800; font-size: 15px; cursor: pointer; text-transform: uppercase; 
-        }
+        .royal-btn { width: 100%; padding: 14px; background: linear-gradient(135deg, var(--gold-color), var(--gold-hover)); border: none; border-radius: 12px; color: #030712; font-weight: 800; font-size: 15px; cursor: pointer; text-transform: uppercase; }
         .security-banner { background-color: var(--bg-color); border: 1px solid var(--success-color); color: var(--success-color); padding: 10px; border-radius: 10px; font-size: 12px; text-align: center; margin-bottom: 12px; font-weight: 700; }
         
-        /* Admin Dashboard */
         .admin-dashboard { background-color: var(--card-bg); border: 2px solid var(--gold-color); border-radius: 18px; padding: 20px; margin-top: 20px; display: none; }
         .admin-heading { color: var(--gold-color); font-weight: 800; margin-bottom: 15px; font-size: 19px; text-align: center; border-bottom: 2px solid var(--border-color); padding-bottom: 12px; }
         .admin-stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 18px; text-align: center; }
@@ -293,32 +181,31 @@
 
     <header class="top-navbar">
         <a href="#" class="nav-brand">👑 BOOKSKING</a>
-        <button class="menu-toggle-btn" onclick="toggleSidebarMenu()">☰</button>
+        <button class="menu-toggle-btn" id="menuToggleBtn">☰</button>
     </header>
 
-    <div class="drawer-overlay" id="drawerOverlay" onclick="toggleSidebarMenu()"></div>
+    <div class="drawer-overlay" id="drawerOverlay"></div>
 
-    <!-- Side Drawer (English) -->
     <div class="side-drawer" id="sideDrawer">
         <div class="drawer-header">
             <span>🌐 Royal Menu Hub</span>
-            <button class="close-drawer-btn" onclick="toggleSidebarMenu()">✕</button>
+            <button class="close-drawer-btn" id="closeDrawerBtn">✕</button>
         </div>
         <div class="drawer-links-list">
-            <a href="https://www.youtube.com" target="_blank" class="drawer-link-item" onclick="recordDeptClick('YouTube')">📺 YouTube</a>
-            <a href="https://www.facebook.com" target="_blank" class="drawer-link-item" onclick="recordDeptClick('Facebook')">📘 Facebook</a>
-            <a href="https://www.tiktok.com" target="_blank" class="drawer-link-item" onclick="recordDeptClick('TikTok')">🎵 TikTok</a>
-            <a href="https://www.amazon.com?tag=booksking-20" target="_blank" class="drawer-link-item" onclick="recordDeptClick('Amazon')">🛒 Amazon Store</a>
-            <a href="https://gemini.google.com" target="_blank" class="drawer-link-item" onclick="recordDeptClick('Gemini AI')">✨ Gemini AI</a>
-            <a href="https://chatgpt.com" target="_blank" class="drawer-link-item" onclick="recordDeptClick('ChatGPT')">🤖 ChatGPT Bot</a>
-            <a href="https://www.google.com" target="_blank" class="drawer-link-item" onclick="recordDeptClick('Google Search')">🌐 Google Search</a>
-            <a href="https://www.snaptubeapp.com" target="_blank" class="drawer-link-item drawer-special-item" onclick="recordDeptClick('Snaptube')">📥 Snaptube Downloader</a>
-            <a href="https://github.com" target="_blank" class="drawer-link-item" onclick="recordDeptClick('GitHub')">🐙 GitHub Repository</a>
-            <a href="https://t.me/YourGroupLinkHere" target="_blank" class="drawer-link-item drawer-group-item" onclick="recordDeptClick('Support Group')">💬 Join Support Group</a>
+            <a href="https://www.youtube.com" target="_blank" class="drawer-link-item" data-dept="YouTube">📺 YouTube</a>
+            <a href="https://www.facebook.com" target="_blank" class="drawer-link-item" data-dept="Facebook">📘 Facebook</a>
+            <a href="https://www.tiktok.com" target="_blank" class="drawer-link-item" data-dept="TikTok">🎵 TikTok</a>
+            <a href="https://www.amazon.com?tag=booksking-20" target="_blank" class="drawer-link-item" data-dept="Amazon">🛒 Amazon Store</a>
+            <a href="https://gemini.google.com" target="_blank" class="drawer-link-item" data-dept="Gemini AI">✨ Gemini AI</a>
+            <a href="https://chatgpt.com" target="_blank" class="drawer-link-item" data-dept="ChatGPT">🤖 ChatGPT Bot</a>
+            <a href="https://www.google.com" target="_blank" class="drawer-link-item" data-dept="Google Search">🌐 Google Search</a>
+            <a href="https://www.snaptubeapp.com" target="_blank" class="drawer-link-item drawer-special-item" data-dept="Snaptube">📥 Snaptube Downloader</a>
+            <a href="https://github.com" target="_blank" class="drawer-link-item" data-dept="GitHub">🐙 GitHub Repository</a>
+            <a href="https://t.me/YourGroupLinkHere" target="_blank" class="drawer-link-item drawer-group-item" data-dept="Support Group">💬 Join Support Group</a>
         </div>
     </div>
 
-    <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleAppTheme()">☀️</button>
+    <button class="theme-toggle-btn" id="themeToggleBtn">☀️</button>
 
     <div class="wrapper">
         <div class="hero-banner">
@@ -330,16 +217,14 @@
             ⚡ Welcome to BOOKSKING | Explore Media, AI Tools, and Direct APK Downloads!
         </div>
 
-        <!-- Smart Search with Autocomplete -->
         <div class="smart-search-container">
             <div class="smart-search-box">
-                <input type="text" id="smartSearchInput" placeholder="Search for books, products, or videos..." oninput="handleSearchInput()" autocomplete="off">
-                <button class="search-btn" onclick="executeSmartSearch()">Search 🔍</button>
+                <input type="text" id="smartSearchInput" placeholder="Search for books, products, or videos..." autocomplete="off">
+                <button class="search-btn" id="searchBtn">Search 🔍</button>
             </div>
             <div class="suggestions-dropdown" id="suggestionsDropdown"></div>
         </div>
 
-        <!-- Video Player Section -->
         <div class="section-card">
             <div class="section-header">🎬 Royal Video Hub</div>
             <div class="custom-video-hub">
@@ -351,33 +236,69 @@
                 <div class="player-controls-bar">
                     <div class="player-title-display" id="currentVideoTitle">Featured: Big Buck Bunny</div>
                     <div style="display:flex; gap:6px;">
-                        <button class="control-btn" onclick="togglePlayPause()" id="playPauseBtn">⏸ Pause</button>
-                        <button class="control-btn" onclick="toggleMute()" id="muteBtn">🔊 Mute</button>
+                        <button class="control-btn" id="playPauseBtn">⏸ Pause</button>
+                        <button class="control-btn" id="muteBtn">🔊 Mute</button>
                     </div>
                 </div>
             </div>
             <div class="video-playlist-grid">
-                <button class="playlist-item" onclick="switchCustomVideo('https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4', 'Featured: Big Buck Bunny')">▶ Video 1</button>
-                <button class="playlist-item" onclick="switchCustomVideo('https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4', 'Animation: Elephant Dream')">▶ Video 2</button>
-                <button class="playlist-item" onclick="switchCustomVideo('https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4', 'Trailer: For Bigger Blazes')">▶ Video 3</button>
+                <button class="playlist-item" data-url="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" data-title="Featured: Big Buck Bunny">▶ Video 1</button>
+                <button class="playlist-item" data-url="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4" data-title="Animation: Elephant Dream">▶ Video 2</button>
+                <button class="playlist-item" data-url="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" data-title="Trailer: For Bigger Blazes">▶ Video 3</button>
             </div>
         </div>
 
-        <!-- APK Center -->
         <div class="section-card">
             <div class="section-header">📱 APK Downloads Center</div>
             <div class="apk-grid">
                 <div class="apk-card">
                     <span>🔥 Snaptube APK</span>
-                    <a href="https://www.snaptubeapp.com" target="_blank" onclick="recordDeptClick('Snaptube APK Download')">Download 📥</a>
+                    <a href="https://www.snaptubeapp.com" target="_blank" data-dept="Snaptube APK Download">Download 📥</a>
                 </div>
                 <div class="apk-card">
                     <span>👑 BOOKSKING App</span>
-                    <a href="#" onclick="alert('Available soon!'); recordDeptClick('BOOKSKING App Download')">Download 📥</a>
+                    <a href="#" id="bookskingAppBtn" data-dept="BOOKSKING App Download">Download 📥</a>
                 </div>
             </div>
         </div>
 
-        <!-- Amazon Departments -->
         <div class="section-card">
-            <div class="section-header">🛍️ Amazon Feature
+            <div class="section-header">🛍️ Amazon Featured Departments</div>
+            <div class="departments-grid">
+                <a href="https://www.amazon.com/s?k=lightning+deals&tag=booksking-20" target="_blank" class="dept-item dept-special" data-dept="Lightning Deals">⚡ Lightning Deals</a>
+                <a href="https://www.amazon.com/b?node=154606011&tag=booksking-20" target="_blank" class="dept-item dept-special" data-dept="Kindle Books">📖 Kindle Books</a>
+                <a href="https://www.amazon.com/s?k=pdf+books&tag=booksking-20" target="_blank" class="dept-item dept-special" data-dept="PDF References">📑 PDF References</a>
+                <a href="https://www.amazon.com/s?k=gaming+consoles&tag=booksking-20" target="_blank" class="dept-item" data-dept="Gaming Consoles">🕹️ Gaming Consoles</a>
+            </div>
+            <div class="selected-badge" id="active-dept-label">Current Department: General Browse</div>
+        </div>
+
+        <div class="section-card" id="auth-section">
+            <div class="security-banner">🛡️ Secure Authentication Gateway</div>
+            <div class="section-header">Sign In / Register Account</div>
+            
+            <button class="google-auth-btn" id="googleAuthBtn">Continue with Google Account</button>
+
+            <div class="divider"><span>Or Manual Registration</span></div>
+
+            <div class="input-box">
+                <label>Username</label>
+                <input type="text" id="username" placeholder="Enter your username">
+            </div>
+            <div class="input-box">
+                <label>Password</label>
+                <input type="password" id="password" placeholder="Enter your password">
+            </div>
+            <button class="royal-btn" id="loginBtn">Sign In / Start Session</button>
+        </div>
+
+        <div class="admin-dashboard" id="adminPanel">
+            <div class="admin-heading">👑 Admin Master Dashboard</div>
+            <div class="admin-stats-grid">
+                <div class="stat-card">
+                    <div style="font-size: 11px; color: var(--text-muted);">Total Visitors</div>
+                    <div class="stat-num" id="stat-visitors">0</div>
+                </div>
+                <div class="stat-card">
+                    <div style="font-size: 11px; color: var(--text-muted);">Registered Accounts</div>
+                    <div cla
