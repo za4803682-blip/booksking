@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BOOKSKING Royal Elite Mega Hub - Perfect Final Edition</title>
+    <title>BOOKSKING Royal Elite Mega Hub - Perfect English Edition</title>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
     <style>
         :root {
             --bg-color: #030712;
-            --card-bg: rgba(17, 24, 39, 0.9);
+            --card-bg: rgba(17, 24, 39, 0.92);
             --border-color: rgba(243, 156, 18, 0.4);
             --gold-color: #f39c12;
             --gold-hover: #e67e22;
@@ -57,7 +57,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 20px;
+            padding: 12px 20px;
             z-index: 999;
             backdrop-filter: blur(12px);
             box-shadow: 0 4px 20px var(--shadow-color);
@@ -77,16 +77,17 @@
             align-items: center;
             justify-content: center;
             box-shadow: 0 4px 10px var(--shadow-color);
+            z-index: 1002;
         }
         .menu-toggle-btn:active { transform: scale(0.92); }
 
         /* Side Drawer */
         .side-drawer {
             position: fixed;
-            top: 0; right: -300px; width: 300px; height: 100%;
+            top: 0; right: -320px; width: 300px; height: 100%;
             background: var(--card-bg);
             border-left: 2px solid var(--gold-color);
-            z-index: 1001;
+            z-index: 1003;
             box-shadow: -10px 0 30px var(--shadow-color);
             backdrop-filter: blur(15px);
             display: flex;
@@ -179,7 +180,9 @@
             overflow: hidden;
         }
 
-        .smart-search-box { display: flex; gap: 8px; margin-bottom: 18px; }
+        /* Smart Search with Autocomplete Suggestions */
+        .smart-search-container { position: relative; margin-bottom: 18px; }
+        .smart-search-box { display: flex; gap: 8px; }
         .smart-search-box input {
             flex: 1; padding: 12px 15px;
             background: var(--card-bg); border: 1px solid var(--border-color);
@@ -190,6 +193,17 @@
             background: var(--gold-color); border: none; color: #030712;
             padding: 0 16px; border-radius: 12px; font-weight: bold; cursor: pointer;
         }
+        .suggestions-dropdown {
+            position: absolute; top: 100%; left: 0; width: calc(100% - 75px);
+            background: var(--card-bg); border: 1px solid var(--border-color);
+            border-radius: 10px; margin-top: 4px; z-index: 99; display: none;
+            box-shadow: 0 8px 20px var(--shadow-color); overflow: hidden;
+        }
+        .suggestion-item {
+            padding: 10px 14px; font-size: 12px; cursor: pointer; color: var(--text-main);
+            border-bottom: 1px solid var(--border-color);
+        }
+        .suggestion-item:hover { background: var(--card-hover); color: var(--gold-color); }
 
         .section-card { 
             background-color: var(--card-bg); 
@@ -200,10 +214,11 @@
         }
         .section-header { text-align: center; font-size: 17px; margin-bottom: 12px; color: var(--gold-color); font-weight: 700; text-transform: uppercase; }
 
-        /* Custom Video Player */
+        /* Enhanced Video Player */
         .custom-video-hub {
             background: #000; border: 2px solid var(--gold-color);
             border-radius: 14px; overflow: hidden; margin-bottom: 12px;
+            box-shadow: 0 10px 25px var(--shadow-color);
         }
         .player-screen { position: relative; width: 100%; padding-bottom: 56.25%; background: #0b0f19; }
         .player-screen video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
@@ -224,7 +239,7 @@
         }
         .playlist-item:hover { border-color: var(--gold-color); color: var(--gold-color); }
 
-        /* APK Apps Center */
+        /* APK Center */
         .apk-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 10px; }
         .apk-card {
             background: var(--bg-color); border: 1px solid var(--border-color);
@@ -242,7 +257,7 @@
         .dept-item:hover { border-color: var(--gold-color); background-color: var(--card-hover); }
         .dept-special { border-color: var(--accent-red); color: var(--accent-red); }
 
-        /* Login & Auth */
+        /* Login */
         .google-auth-btn {
             width: 100%; padding: 13px; background-color: #ffffff; color: #0f172a;
             border: 1px solid #cbd5e1; border-radius: 12px; font-weight: 700; font-size: 14px; cursor: pointer;
@@ -278,29 +293,28 @@
 
     <header class="top-navbar">
         <a href="#" class="nav-brand">👑 BOOKSKING</a>
-        <button class="menu-toggle-btn" onclick="toggleSidebarMenu()">⋮</button>
+        <button class="menu-toggle-btn" onclick="toggleSidebarMenu()">☰</button>
     </header>
 
     <div class="drawer-overlay" id="drawerOverlay" onclick="toggleSidebarMenu()"></div>
 
-    <!-- Side Drawer -->
+    <!-- Side Drawer (English) -->
     <div class="side-drawer" id="sideDrawer">
         <div class="drawer-header">
-            <span>🌐 القائمة الملكية الشاملة</span>
+            <span>🌐 Royal Menu Hub</span>
             <button class="close-drawer-btn" onclick="toggleSidebarMenu()">✕</button>
         </div>
         <div class="drawer-links-list">
-            <a href="https://www.youtube.com" target="_blank" class="drawer-link-item" onclick="recordDeptClick('يوتيوب')">📺 يوتيوب</a>
-            <a href="https://www.facebook.com" target="_blank" class="drawer-link-item" onclick="recordDeptClick('فيسبوك')">📘 فيسبوك</a>
-            <a href="https://www.tiktok.com" target="_blank" class="drawer-link-item" onclick="recordDeptClick('تيك توك')">🎵 تيك توك</a>
-            <a href="https://www.amazon.com?tag=booksking-20" target="_blank" class="drawer-link-item" onclick="recordDeptClick('أمازون')">🛒 أمازون</a>
-            <a href="https://gemini.google.com" target="_blank" class="drawer-link-item" onclick="recordDeptClick('Gemini AI')">✨ الذكاء الاصطناعي (Gemini)</a>
-            <a href="https://chatgpt.com" target="_blank" class="drawer-link-item" onclick="recordDeptClick('ChatGPT')">🤖 روبوت ChatGPT</a>
-            <a href="https://www.google.com" target="_blank" class="drawer-link-item" onclick="recordDeptClick('جوجل')">🌐 محرك بحث جوجل</a>
-            <a href="https://www.snaptubeapp.com" target="_blank" class="drawer-link-item drawer-special-item" onclick="recordDeptClick('Snaptube')">📥 قسم التحميل (Snaptube)</a>
-            <a href="https://github.com" target="_blank" class="drawer-link-item" onclick="recordDeptClick('GitHub')">🐙 مستودع GitHub</a>
-            <!-- جروب التواصل الصغير للتحدث معك -->
-            <a href="https://t.me/YourGroupLinkHere" target="_blank" class="drawer-link-item drawer-group-item" onclick="recordDeptClick('جروب التواصل')">💬 انضم لجروب التواصل الخاص بنا</a>
+            <a href="https://www.youtube.com" target="_blank" class="drawer-link-item" onclick="recordDeptClick('YouTube')">📺 YouTube</a>
+            <a href="https://www.facebook.com" target="_blank" class="drawer-link-item" onclick="recordDeptClick('Facebook')">📘 Facebook</a>
+            <a href="https://www.tiktok.com" target="_blank" class="drawer-link-item" onclick="recordDeptClick('TikTok')">🎵 TikTok</a>
+            <a href="https://www.amazon.com?tag=booksking-20" target="_blank" class="drawer-link-item" onclick="recordDeptClick('Amazon')">🛒 Amazon Store</a>
+            <a href="https://gemini.google.com" target="_blank" class="drawer-link-item" onclick="recordDeptClick('Gemini AI')">✨ Gemini AI</a>
+            <a href="https://chatgpt.com" target="_blank" class="drawer-link-item" onclick="recordDeptClick('ChatGPT')">🤖 ChatGPT Bot</a>
+            <a href="https://www.google.com" target="_blank" class="drawer-link-item" onclick="recordDeptClick('Google Search')">🌐 Google Search</a>
+            <a href="https://www.snaptubeapp.com" target="_blank" class="drawer-link-item drawer-special-item" onclick="recordDeptClick('Snaptube')">📥 Snaptube Downloader</a>
+            <a href="https://github.com" target="_blank" class="drawer-link-item" onclick="recordDeptClick('GitHub')">🐙 GitHub Repository</a>
+            <a href="https://t.me/YourGroupLinkHere" target="_blank" class="drawer-link-item drawer-group-item" onclick="recordDeptClick('Support Group')">💬 Join Support Group</a>
         </div>
     </div>
 
@@ -309,21 +323,25 @@
     <div class="wrapper">
         <div class="hero-banner">
             <div class="brand-title">BOOKSKING MEGA HUB 👑</div>
-            <div class="brand-subtitle">المنصة الملكية المتكاملة للتسويق، البث، والأدوات الذكية</div>
+            <div class="brand-subtitle">Ultimate Digital Hub for Streaming, Shopping & AI Tools</div>
         </div>
 
         <div class="live-ticker">
-            ⚡ أهلاً بك في BOOKSKING | تصفح المنصات، أدوات التحميل، وتطبيقات الأندرويد المباشرة!
+            ⚡ Welcome to BOOKSKING | Explore Media, AI Tools, and Direct APK Downloads!
         </div>
 
-        <div class="smart-search-box">
-            <input type="text" id="smartSearchInput" placeholder="ابحث عن كتاب، منتج في أمازون، أو تطبيق...">
-            <button class="search-btn" onclick="executeSmartSearch()">بحث 🔍</button>
+        <!-- Smart Search with Autocomplete -->
+        <div class="smart-search-container">
+            <div class="smart-search-box">
+                <input type="text" id="smartSearchInput" placeholder="Search for books, products, or videos..." oninput="handleSearchInput()" autocomplete="off">
+                <button class="search-btn" onclick="executeSmartSearch()">Search 🔍</button>
+            </div>
+            <div class="suggestions-dropdown" id="suggestionsDropdown"></div>
         </div>
 
         <!-- Video Player Section -->
         <div class="section-card">
-            <div class="section-header">🎬 مشغل فيديوهات المنصة الخاصة</div>
+            <div class="section-header">🎬 Royal Video Hub</div>
             <div class="custom-video-hub">
                 <div class="player-screen">
                     <video id="royalVideoElement" poster="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&auto=format&fit=crop&q=60">
@@ -331,42 +349,35 @@
                     </video>
                 </div>
                 <div class="player-controls-bar">
-                    <div class="player-title-display" id="currentVideoTitle">العرض الترويجي: Big Buck Bunny</div>
+                    <div class="player-title-display" id="currentVideoTitle">Featured: Big Buck Bunny</div>
                     <div style="display:flex; gap:6px;">
-                        <button class="control-btn" onclick="togglePlayPause()" id="playPauseBtn">⏸️ إيقاف</button>
-                        <button class="control-btn" onclick="toggleMute()" id="muteBtn">🔊 كتم</button>
+                        <button class="control-btn" onclick="togglePlayPause()" id="playPauseBtn">⏸ Pause</button>
+                        <button class="control-btn" onclick="toggleMute()" id="muteBtn">🔊 Mute</button>
                     </div>
                 </div>
             </div>
             <div class="video-playlist-grid">
-                <button class="playlist-item" onclick="switchCustomVideo('https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4', 'العرض الترويجي: Big Buck Bunny')">▶️ فيديو 1</button>
-                <button class="playlist-item" onclick="switchCustomVideo('https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4', 'عرض الجرافيك: Elephant Dream')">▶️ فيديو 2</button>
-                <button class="playlist-item" onclick="switchCustomVideo('https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4', 'تشويقي: For Bigger Blazes')">▶️ فيديو 3</button>
+                <button class="playlist-item" onclick="switchCustomVideo('https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4', 'Featured: Big Buck Bunny')">▶ Video 1</button>
+                <button class="playlist-item" onclick="switchCustomVideo('https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4', 'Animation: Elephant Dream')">▶ Video 2</button>
+                <button class="playlist-item" onclick="switchCustomVideo('https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4', 'Trailer: For Bigger Blazes')">▶ Video 3</button>
             </div>
         </div>
 
-        <!-- APK Apps Download Section -->
+        <!-- APK Center -->
         <div class="section-card">
-            <div class="section-header">📱 قسم تحميل تطبيقات الـ APK</div>
+            <div class="section-header">📱 APK Downloads Center</div>
             <div class="apk-grid">
                 <div class="apk-card">
-                    <span>🔥 تطبيق Snaptube APK</span>
-                    <a href="https://www.snaptubeapp.com" target="_blank" onclick="recordDeptClick('تحميل Snaptube APK')">تحميل مباشر 📥</a>
+                    <span>🔥 Snaptube APK</span>
+                    <a href="https://www.snaptubeapp.com" target="_blank" onclick="recordDeptClick('Snaptube APK Download')">Download 📥</a>
                 </div>
                 <div class="apk-card">
-                    <span>👑 تطبيق BOOKSKING Hub</span>
-                    <a href="#" onclick="alert('سيكون متاحاً قريباً يا بشمهندس!'); recordDeptClick('تحميل تطبيق المنصة')">تحميل مباشر 📥</a>
+                    <span>👑 BOOKSKING App</span>
+                    <a href="#" onclick="alert('Available soon!'); recordDeptClick('BOOKSKING App Download')">Download 📥</a>
                 </div>
             </div>
         </div>
 
         <!-- Amazon Departments -->
         <div class="section-card">
-            <div class="section-header">🛍️ أقسام أمازون المميزة</div>
-            <div class="departments-grid">
-                <a href="https://www.amazon.com/s?k=lightning+deals&tag=booksking-20" target="_blank" class="dept-item dept-special" onclick="recordDeptClick('العروض والخصومات')">⚡ العروض والخصومات</a>
-                <a href="https://www.amazon.com/b?node=154606011&tag=booksking-20" target="_blank" class="dept-item dept-special" onclick="recordDeptClick('Kindle')">📖 الكتب الإلكترونية (Kindle)</a>
-                <a href="https://www.amazon.com/s?k=pdf+books&tag=booksking-20" target="_blank" class="dept-item dept-special" onclick="recordDeptClick('كتب PDF')">📑 المراجع وكتب الـ PDF</a>
-                <a href="https://www.amazon.com/s?k=gaming+consoles&tag=booksking-20" target="_blank" class="dept-item" onclick="recordDeptClick('الألعاب')">🕹️ أجهزة الكونسول والألعاب</a>
-            </div>
-            <div class="selected-badge" id="active-dept-label">القسم الم
+            <div class="section-header">🛍️ Amazon Feature
